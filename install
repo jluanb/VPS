@@ -197,4 +197,3 @@ sleep 1.5s
 	make && make install
 	exit
 fi
-nano /etc/squid3/squid.conf
