@@ -190,6 +190,7 @@ sleep 1.5s
 	tar xf v0.8.5.tar.gz
 	cd ./nethogs-0.8.5/
 	make && make install
+	fi
 
 sleep 3s
 
@@ -229,6 +230,8 @@ sleep 3s
 	echo "" ; tput sgr0
 	exit
 else 
+	echo ""
 	exit
 fi
 fi
+
