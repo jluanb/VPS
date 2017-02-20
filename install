@@ -137,6 +137,20 @@ UsePAM yes" > /etc/ssh/sshd_config
 
 service squid3 restart
 
+chk=$(cat /etc/ssh/sshd_config |grep Banner )
+if echo "$chk" |grep -v "#Banner" |grep Banner > /dev/null 2> /dev/null
+then
+local=$(echo "$chk" |grep -v "#Banner" |grep Banner |awk '{print $2}')
+echo "O que vc deseja por no banner ?"
+read -p ": " banner
+echo "$banner" > $local
+else
+echo "Banner /etc/banner.txt" >> /etc/ssh/sshd_config
+service ssh restart > /dev/null 2> /dev/null
+service sshd restart > /dev/null 2> /dev/null
+banner
+fi
+
 echo "fs.file-max = 51200
 
 net.core.rmem_max = 67108864
@@ -227,18 +241,10 @@ sleep 1.5s
 	echo ""
 	echo "E deixe a sessão screen rodando em segundo plano."
 	echo "" ; tput sgr0
+	exit
+else 
+	echo ""
+	exit
+fi
+fi
 
-fi
-chk=$(cat /etc/ssh/sshd_config |grep Banner )
-if echo "$chk" |grep -v "#Banner" |grep Banner > /dev/null 2> /dev/null
-then
-local=$(echo "$chk" |grep -v "#Banner" |grep Banner |awk '{print $2}')
-echo "O que vc deseja por no banner ?"
-read -p ": " banner
-echo "$banner" > $local
-else
-echo "Banner /etc/banner.txt" >> /etc/ssh/sshd_config
-service ssh restart > /dev/null 2> /dev/null
-service sshd restart > /dev/null 2> /dev/null
-banner
-fi
