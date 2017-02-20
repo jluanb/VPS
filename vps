@@ -163,12 +163,13 @@ echo "\033[44;1;37m Instalado VpsPack \033[0m "
 
 sleep 3s
 
-echo "\033[44;1;37m Instalando NETHOGS \033[0m "
+echo "\033[44;1;37m Instalando Utilidades \033[0m "
 
 sleep 1.5s
 
 	apt-get install vnstat -y
 	apt-get install pktstat -y
+	apt-get install ntop graphviz -y
 	apt-get install make g++ -y
 	apt-get install libncurses5-dev -y
 	apt-get install libpcap-dev -y
@@ -179,7 +180,7 @@ sleep 1.5s
 	cd ./nethogs-0.8.5/
 	make && make install
 
-echo "\033[44;1;37m Instalado NETHOGS \033[0m "
+echo "\033[44;1;37m Instalado Utilidades \033[0m "
 
 sleep 3s
 
