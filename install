@@ -1,9 +1,12 @@
 #!/bin/sh
 
+echo "\033[44;1;37m Instalando VpsPack \033[0m "
+
 apt-get update
 apt-get upgrade -y
 
 sleep 1.5s
+
 rm -rf /root/.git
 rm -rf /root/VPS
 rm -rf /root/install
@@ -181,44 +184,57 @@ echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
 sleep 1.5s
 
-apt-get install vnstat -y
-apt-get install pktstat -y
-apt-get install ntop graphviz -y
-apt-get install make g++ -y
-apt-get install libncurses5-dev -y
-apt-get install libpcap-dev -y
+	apt-get install vnstat -y
+	apt-get install pktstat -y
+	apt-get install make g++ -y
+	apt-get install libncurses5-dev -y
+	apt-get install libpcap-dev -y
 
-# Baixe o código fonte, compile e instale:
-wget http://github.com/raboof/nethogs/archive/v0.8.5.tar.gz
-tar xf v0.8.5.tar.gz
-cd ./nethogs-0.8.5/
-make && make install	
-cd
+	# Baixe o código fonte, compile e instale:
+	wget http://github.com/raboof/nethogs/archive/v0.8.5.tar.gz
+	tar xf v0.8.5.tar.gz
+	cd ./nethogs-0.8.5/
+	make && make install
 
-sleep 3s
+sleep 1.5s
 
-apt-get install screen wget gcc build-essential g++ make -y
-#wget http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
-#tar xvzf cmake*.tar.gz
-#cd cmake*
-#./bootstrap --prefix=/usr
-#make 
-#make install
-#cd ..
-#rm -r cmake*
-#mkdir badvpn-build
-#cd badvpn-build
-#wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/badvpn/badvpn-1.999.128.tar.bz2
-#tar xf badvpn-1.999.128.tar.bz2
-#cd bad*
-#cmake -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1
-#make install
-#cd ..
-#rm -r bad*
-#cd ..
-#rm -r badvpn-build
-#echo "#!/bin/bash
-#badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 512 --max-connections-for-client 8" > /bin/badudp
-#chmod +x /bin/badudp
-#clear
+	apt-get install screen wget gcc build-essential g++ make -y
+	wget http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
+	tar xvzf cmake*.tar.gz
+	cd cmake*
+	./bootstrap --prefix=/usr
+	make 
+	make install
+	cd ..
+	rm -r cmake*
+	mkdir badvpn-build
+	cd badvpn-build
+	wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/badvpn/badvpn-1.999.128.tar.bz2
+	tar xf badvpn-1.999.128.tar.bz2
+	cd bad*
+	cmake -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1
+	make install
+	cd ..
+	rm -r bad*
+	cd ..
+	rm -r badvpn-build
+	echo "#!/bin/bash
+	badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 512 --max-connections-for-client 8" > /bin/badudp
+	chmod +x /bin/badudp
+	clear
+	tput setaf 3 ; tput bold ; echo ""
+	echo ""
+	echo "BadVPN instalado com sucesso."
+	echo "Para usar, crie uma sessão screen"
+	echo "E execute o comando:"
+	echo ""
+	echo "badudp"
+	echo ""
+	echo "E deixe a sessão screen rodando em segundo plano."
+	echo "" ; tput sgr0
+	exit
+else 
+	echo ""
+	exit
+fi
 fi
