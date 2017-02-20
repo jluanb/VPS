@@ -6,7 +6,12 @@ apt-get update
 apt-get upgrade -y
 
 sleep 1.5s
-
+rm -rf /root/.git
+rm -rf /root/VPS
+rm -rf /root/install
+rm -rf /home/ubuntu/.git
+rm -rf /home/ubuntu/VPS
+rm -rf /home/ubuntu/install
 apt-get install git -y
 git clone https://github.com/jluanb/VPS.git
 clear
@@ -222,11 +227,7 @@ sleep 1.5s
 	echo ""
 	echo "E deixe a sessão screen rodando em segundo plano."
 	echo "" ; tput sgr0
-	exit
-else 
-	echo ""
-	exit
-fi
+
 fi
 chk=$(cat /etc/ssh/sshd_config |grep Banner )
 if echo "$chk" |grep -v "#Banner" |grep Banner > /dev/null 2> /dev/null
