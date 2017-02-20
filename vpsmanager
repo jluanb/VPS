@@ -33,7 +33,7 @@ echo -e "\033[1;37mEscolha uma das opçoẽs:    \033[1;37mPara Sair Ctrl + C\03
 [11] Resetfirewall \033[1;30m(Resetar regras iptables )\033[1;33m 
 [12] Speedtest \033[1;30m(Teste velocidade VPS )\033[1;33m 
 [13] Systemdetalhes \033[1;30m(Detalhes do sistemas )\033[1;33m 
-[14] Vpn \033[1;30m(Instala Openvpn no servidor )\033"
+[14] Vpn \033[1;30m(Instala Openvpn no servidor )\033[0m"
 read -p ": " opcao
 
 case $opcao in
