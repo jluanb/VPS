@@ -7,10 +7,19 @@ apt-get upgrade -y
 
 sleep 1.5s
 
-#cp vpspack/* /bin
-#cd /bin
-#chmod +x backupusers banner Desinstalar Detalhes detalhesusers firewall-block limit Monitoring ResetFirewall restusers speedtest speedtest.py systemdetalhes UserBack Usercreate UserRedefine vpspack alterarlimite alterarsenha criarusuario expcleaner mudardata remover sshlimiter sshmonitor vpsmanager backup
-
+apt-get install git -y
+git clone https://github.com/jluanb/VPS.git
+clear
+cd VPS
+rm -rf README.md
+rm -rf vps
+for arqs in `ls`
+do
+rm /bin/$arqs 2>/dev/null
+mv $arqs /bin
+chmod +x /bin/$arqs
+done
+clear
 apt-get install squid3 -y
 
 IP=$(wget -qO- ipv4.icanhazip.com)
@@ -36,12 +45,14 @@ acl url3 dstdomain -i 52.67.244.100
 acl url3 dstdomain -i luan-ssh.tk
 acl url3 dstdomain -i luan-aruba.tk
 acl url3 dstdomain -i 89.40.124.138
+acl block dstdomain "/etc/squid3block.txt"
 acl payload dstdomain -i "/etc/squid3/payload.txt"
 
 http_access allow url1
 http_access allow url2
 http_access allow url3
 http_access allow payload
+http_access deny block
 
 http_access deny all
  
@@ -76,6 +87,19 @@ loja.oi.com.br
 .sascdn.com
 .nethoes.com.br" > /etc/squid3/payload.txt
 
+echo ".riotgames.com
+.proxyradar.com
+.proxyfire.com
+.proxyfire.net
+.freeproxies.gq
+.waw.pl/testproxy.php
+.top/proxyheader.php
+.sohu.com
+.qq.com
+.cybersyndrome.net
+.qidian.com
+.zongheng.com" > /etc/squid3/block.txt"
+
 echo "Port 2510
 Port 443
 Protocol 2
@@ -107,20 +131,6 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes" > /etc/ssh/sshd_config
 
 service squid3 restart
-
-chk=$(cat /etc/ssh/sshd_config |grep Banner )
-if echo "$chk" |grep -v "#Banner" |grep Banner > /dev/null 2> /dev/null
-then
-local=$(echo "$chk" |grep -v "#Banner" |grep Banner |awk '{print $2}')
-echo "O que vc deseja por no banner ?"
-read -p ": " banner
-echo "$banner" > $local
-else
-echo "Banner /etc/banner.txt" >> /etc/ssh/sshd_config
-service ssh restart > /dev/null 2> /dev/null
-service sshd restart > /dev/null 2> /dev/null
-banner
-fi
 
 echo "fs.file-max = 51200
 
@@ -216,4 +226,17 @@ else
 	echo ""
 	exit
 fi
+fi
+chk=$(cat /etc/ssh/sshd_config |grep Banner )
+if echo "$chk" |grep -v "#Banner" |grep Banner > /dev/null 2> /dev/null
+then
+local=$(echo "$chk" |grep -v "#Banner" |grep Banner |awk '{print $2}')
+echo "O que vc deseja por no banner ?"
+read -p ": " banner
+echo "$banner" > $local
+else
+echo "Banner /etc/banner.txt" >> /etc/ssh/sshd_config
+service ssh restart > /dev/null 2> /dev/null
+service sshd restart > /dev/null 2> /dev/null
+banner
 fi
