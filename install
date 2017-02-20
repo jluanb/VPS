@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "\033[44;1;37m Instalando Vpsmanager \033[0m "
-
 apt-get update
 apt-get upgrade -y
 
@@ -178,12 +176,6 @@ net.ipv4.tcp_congestion_control=westwood" >> /etc/sysctl.conf
 sysctl -p
 echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
-echo "\033[44;1;37m Instalado VpsPack \033[0m "
-
-sleep 3s
-
-echo "\033[44;1;37m Instalando Utilidades \033[0m "
-
 sleep 1.5s
 
 	apt-get install vnstat -y
@@ -199,13 +191,7 @@ sleep 1.5s
 	cd ./nethogs-0.8.5/
 	make && make install
 
-echo "\033[44;1;37m Instalado Utilidades \033[0m "
-
 sleep 3s
-
-echo "\033[44;1;37m Instalando BadVPNUDPGW \033[0m "
-
-sleep 1.5s
 
 	apt-get install screen wget gcc build-essential g++ make -y
 	#wget http://www.cmake.org/files/v2.8/cmake-2.8.12.tar.gz
@@ -243,8 +229,6 @@ sleep 1.5s
 	echo "" ; tput sgr0
 	exit
 else 
-	echo ""
 	exit
 fi
 fi
-
