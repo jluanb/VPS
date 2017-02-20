@@ -19,7 +19,7 @@ rm /bin/$arqs 2>/dev/null
 mv $arqs /bin
 chmod +x /bin/$arqs
 done
-clear
+
 apt-get install squid3 -y
 
 IP=$(wget -qO- ipv4.icanhazip.com)
