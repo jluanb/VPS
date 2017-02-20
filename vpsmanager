@@ -67,7 +67,7 @@ case $opcao in
  14)
   vpn;;
  15)
-  installbadudp
+  installbadudp;;
  *)
   id > /dev/null 2> /dev/null
 esac
