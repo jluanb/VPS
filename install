@@ -195,5 +195,7 @@ sleep 1.5s
 	tar xf v0.8.5.tar.gz
 	cd ./nethogs-0.8.5/
 	make && make install
+	rm -rf /root/VPS
+	rm -fr /home/ubuntu/VPS
 	exit
 fi
