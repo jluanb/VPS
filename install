@@ -10,6 +10,9 @@ rm -rf /root/install
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
+
+sleep 1.5s
+
 apt-get install git -y
 git clone https://github.com/jluanb/VPS.git
 clear
@@ -218,5 +221,4 @@ apt-get install screen wget gcc build-essential g++ make -y
 badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 512 --max-connections-for-client 8" > /bin/badudp
 #chmod +x /bin/badudp
 #clear
-exit
 fi
