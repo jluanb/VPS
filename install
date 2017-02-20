@@ -44,7 +44,7 @@ apt-get install squid3 -y
 
 IP=$(wget -qO- ipv4.icanhazip.com)
 
-echo "# Ganhos de performançe na hierarchy_stoplist
+echo '# Ganhos de performançe na hierarchy_stoplist
 hierarchy_stoplist cgi-bin ?
 # Tempo limite de conexões aceitas e negadas
 negative_ttl 3 minutes
@@ -82,7 +82,7 @@ http_port 3128
 
 visible_hostname luan-ssh
 forwarded_for off
-via off" > /etc/squid3/squid.conf
+via off' > /etc/squid3/squid.conf
 
 echo ".claro.com.br
 .claro.com
