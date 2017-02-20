@@ -45,8 +45,8 @@ acl url3 dstdomain -i 52.67.244.100
 acl url3 dstdomain -i luan-ssh.tk
 acl url3 dstdomain -i luan-aruba.tk
 acl url3 dstdomain -i 89.40.124.138
-acl block dstdomain "/etc/squid3block.txt"
-acl payload dstdomain -i "/etc/squid3/payload.txt"
+acl block dstdomain '/etc/squid3/block.txt'
+acl payload dstdomain -i '/etc/squid3/payload.txt'
 
 http_access allow url1
 http_access allow url2
@@ -98,7 +98,7 @@ echo ".riotgames.com
 .qq.com
 .cybersyndrome.net
 .qidian.com
-.zongheng.com" > /etc/squid3/block.txt"
+.zongheng.com" > /etc/squid3/block.txt
 
 echo "Port 2510
 Port 443
