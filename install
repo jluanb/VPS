@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "\033[44;1;37m Instalando VpsPack \033[0m "
+echo "\033[44;1;37m Instalando Vpsmanager \033[0m "
 
 apt-get update
 apt-get upgrade -y
@@ -12,7 +12,7 @@ git clone https://github.com/jluanb/VPS.git
 clear
 cd VPS
 rm -rf README.md
-rm -rf vps
+rm -rf install
 for arqs in `ls`
 do
 rm /bin/$arqs 2>/dev/null
