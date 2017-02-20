@@ -34,7 +34,7 @@ echo -e "\033[1;37mEscolha uma das opçoẽs:    \033[1;37mPara Sair Ctrl + C\03
 [12] Speedtest \033[1;0m(Teste velocidade VPS )\033[1;33m 
 [13] Systemdetalhes \033[1;0m(Detalhes do sistemas )\033[1;33m 
 [14] Vpn \033[1;0m(Instala Openvpn no servidor )\033[33m
-[15] Installbadudp \033[1;0m(Detalhes do sistemas )\033[1;0m"
+[15] Installbadudp \033[1;0m(Instalar Badudp )\033[1;0m"
 read -p ": " opcao
 
 case $opcao in
