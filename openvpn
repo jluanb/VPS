@@ -55,9 +55,6 @@ newclient () {
     echo "<key>" >> ~/$1.ovpn
     cat /etc/openvpn/easy-rsa/pki/private/$1.key >> ~/$1.ovpn
     echo "</key>" >> ~/$1.ovpn
-    echo "<tls-auth>" >> ~/$1.ovpn
-    cat /etc/openvpn/ta.key >> ~/$1.ovpn
-    echo "</tls-auth>" >> ~/$1.ovpn
 }
 
 # Try to get our IP from the system and fallback to the Internet.
@@ -199,41 +196,29 @@ else
     echo ""
     echo "Okay, that was all I needed. We are ready to setup your OpenVPN server now"
     read -n1 -r -p "Press any key to continue..."
-        if [[ "$OS" = 'debian' ]]; then
-        apt-get update
-        apt-get install openvpn iptables openssl ca-certificates -y
-    else
-        # Else, the distro is CentOS
-        yum install epel-release -y
-        yum install openvpn iptables openssl wget ca-certificates -y
-    fi
-    # An old version of easy-rsa was available by default in some openvpn packages
-    if [[ -d /etc/openvpn/easy-rsa/ ]]; then
-        rm -rf /etc/openvpn/easy-rsa/
-    fi
-    # Get easy-rsa
-    wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz
-    tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
-    mv ~/EasyRSA-3.0.1/ /etc/openvpn/
-    mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/
-    chown -R root:root /etc/openvpn/easy-rsa/
-    rm -rf ~/EasyRSA-3.0.1.tgz
-    cd /etc/openvpn/easy-rsa/
-    # Create the PKI, set up the CA, the DH params and the server + client certificates
-    ./easyrsa init-pki
-    ./easyrsa --batch build-ca nopass
-    ./easyrsa gen-dh
-    ./easyrsa build-server-full server nopass
-    ./easyrsa build-client-full $CLIENT nopass
-    ./easyrsa gen-crl
-    # Move the stuff we need
-    cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
-    # CRL is read with each client connection, when OpenVPN is dropped to nobody
-    chown nobody:$GROUPNAME /etc/openvpn/crl.pem
-    # Generate key for tls-auth
-    openvpn --genkey --secret /etc/openvpn/ta.key
-    # Generate server.conf
-    echo "port $PORT
+apt-get update
+apt-get install openvpn iptables openssl ca-certificates -y
+# Get easy-rsa
+wget -O ~/EasyRSA-3.0.1.tgz https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz
+tar xzf ~/EasyRSA-3.0.1.tgz -C ~/
+mv ~/EasyRSA-3.0.1/ /etc/openvpn/
+mv /etc/openvpn/EasyRSA-3.0.1/ /etc/openvpn/easy-rsa/
+chown -R root:root /etc/openvpn/easy-rsa/
+rm -rf ~/EasyRSA-3.0.1.tgz
+cd /etc/openvpn/easy-rsa/
+# Create the PKI, set up the CA, the DH params and the server + client certificates
+./easyrsa init-pki
+./easyrsa --batch build-ca nopass
+./easyrsa gen-dh
+./easyrsa build-server-full server nopass
+./easyrsa build-client-full $CLIENT nopass
+./easyrsa gen-crl
+# Move the stuff we need
+cp pki/ca.crt pki/private/ca.key pki/dh.pem pki/issued/server.crt pki/private/server.key /etc/openvpn/easy-rsa/pki/crl.pem /etc/openvpn
+# CRL is read with each client connection, when OpenVPN is dropped to nobody
+chown nobody:$GROUPNAME /etc/openvpn/crl.pem
+# Generate server.conf
+echo "port $PORT
 tun-mtu 1500
 mssfix 1300
 proto tcp
@@ -246,7 +231,10 @@ ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-tls-auth ta.key 0
+comp-lzo
+plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login
+client-cert-not-required
+username-as-common-name
 topology subnet
 server 10.8.0.0 255.255.255.0
 ifconfig-pool-persist ipp.txt" > /etc/openvpn/server.conf
@@ -384,6 +372,9 @@ resolv-retry infinite
 nobind
 persist-key
 persist-tun
+auth-user-pass
+reneg-sec 0
+comp-lzo
 remote-cert-tls server
 cipher AES-128-CBC
 setenv opt block-outside-dns
