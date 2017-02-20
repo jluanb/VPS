@@ -1,9 +1,13 @@
 #!/bin/sh
 
-echo "\033[44;1;37m Instalando VpsPack \033[0m "
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizando" ; tput sgr0
+echo ""
 
 apt-get update
 apt-get upgrade -y
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Removendo restos de instalação antiga" ; tput sgr0
+echo ""
 
 sleep 1.5s
 
@@ -13,6 +17,9 @@ rm -rf /root/install
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando GIT" ; tput sgr0
+echo ""
 
 sleep 1.5s
 
@@ -28,6 +35,10 @@ rm /bin/$arqs 2>/dev/null
 mv $arqs /bin
 chmod +x /bin/$arqs
 done
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squid3" ; tput sgr0
+echo ""
+
+sleep 2s
 
 apt-get install squid3 -y
 
@@ -155,6 +166,11 @@ service sshd restart > /dev/null 2> /dev/null
 banner
 fi
 
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Otimizando Sysctl" ; tput sgr0
+echo ""
+
+sleep 2s
+
 echo "fs.file-max = 51200
 
 net.core.rmem_max = 67108864
@@ -182,10 +198,14 @@ net.ipv4.tcp_congestion_control=westwood" >> /etc/sysctl.conf
 sysctl -p
 echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Vnstat, Pktstat, Ntop, Nethogs e dependencias" ; tput sgr0
+echo ""
+
 sleep 1.5s
 
 	apt-get install vnstat -y
 	apt-get install pktstat -y
+	apt-get install ntop graphviz -y
 	apt-get install make g++ -y
 	apt-get install libncurses5-dev -y
 	apt-get install libpcap-dev -y
