@@ -47,12 +47,10 @@ done
 clear
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squid3" ; tput sgr0
-echo ""
 
 sleep 2s
 
 apt-get install squid3 -y
-fi
 
 echo "# Ganhos de performançe na hierarchy_stoplist
 hierarchy_stoplist cgi-bin ?
@@ -89,10 +87,9 @@ http_access deny all
 http_port 8080
 http_port 80
 http_port 3128
-
 visible_hostname luan-ssh
 forwarded_for off
-via off' > /etc/squid3/squid.conf
+via off" > /etc/squid3/squid.conf
 
 echo ".claro.com.br
 .claro.com
@@ -112,10 +109,10 @@ v.whatsapp.com
 loja.oi.com.br
 .rdio.com/rewrite.pandora.com
 .vivoblog.com.br
-.vivomms.com.br
-.cloudfront.net
 .sascdn.com
-.nethoes.com.br" > /etc/squid3/payload.txt
+.nethoes.com.br
+.vivomms.com.br
+.cloudfront.net" > /etc/squid3/payload.txt 
 
 echo ".riotgames.com
 .proxyradar.com
@@ -184,12 +181,10 @@ echo ""
 sleep 2s
 
 echo "fs.file-max = 51200
-
 net.core.rmem_max = 67108864
 net.core.wmem_max = 67108864
 net.core.netdev_max_backlog = 250000
 net.core.somaxconn = 4096
-
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_tw_reuse = 1
 net.ipv4.tcp_tw_recycle = 1
