@@ -6,6 +6,8 @@ echo ""
 apt-get update
 apt-get upgrade -y
 
+clear
+
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Removendo restos de instalação antiga" ; tput sgr0
 echo ""
 
@@ -17,6 +19,8 @@ rm -rf /root/install
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
+
+clear
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando GIT" ; tput sgr0
 echo ""
@@ -35,6 +39,9 @@ rm /bin/$arqs 2>/dev/null
 mv $arqs /bin
 chmod +x /bin/$arqs
 done
+
+clear
+
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squid3" ; tput sgr0
 echo ""
 
@@ -42,9 +49,11 @@ sleep 2s
 
 apt-get install squid3 -y
 
-IP=$(wget -qO- ipv4.icanhazip.com)
+IP1=`host luan-ssh.tk | awk '{print $NF}'`
+IP2=`host ssh-luan.tk | awk '{print $NF}'`
+IP3=`host luan-aruba.tk | awk '{print $NF}'`
 
-echo '# Ganhos de performançe na hierarchy_stoplist
+echo "# Ganhos de performançe na hierarchy_stoplist
 hierarchy_stoplist cgi-bin ?
 # Tempo limite de conexões aceitas e negadas
 negative_ttl 3 minutes
@@ -59,14 +68,14 @@ detect_broken_pconn on
 pipeline_prefetch on
 acl url1 dstdomain -i 127.0.0.1
 acl url2 dstdomain -i localhost
-acl url3 dstdomain -i $IP
-acl url3 dstdomain -i ssh-luan.tk
-acl url3 dstdomain -i 52.67.244.100
+acl url3 dstdomain -i $IP1
 acl url3 dstdomain -i luan-ssh.tk
+acl url3 dstdomain -i $IP2
+acl url3 dstdomain -i ssh-luan.tk
+acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i luan-aruba.tk
-acl url3 dstdomain -i 89.40.124.138
-acl block dstdomain "/etc/squid3/block.txt"
-acl payload dstdomain -i "/etc/squid3/payload.txt"
+acl block dstdomain '/etc/squid3/block.txt'
+acl payload dstdomain -i '/etc/squid3/payload.txt'
 
 http_access allow url1
 http_access allow url2
@@ -166,6 +175,8 @@ service sshd restart > /dev/null 2> /dev/null
 banner
 fi
 
+clear
+
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Otimizando Sysctl" ; tput sgr0
 echo ""
 
@@ -197,6 +208,8 @@ net.ipv4.tcp_mtu_probing=1
 net.ipv4.tcp_congestion_control=westwood" >> /etc/sysctl.conf
 sysctl -p
 echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
+
+clear
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Vnstat, Pktstat, Ntop, Nethogs e dependencias" ; tput sgr0
 echo ""
