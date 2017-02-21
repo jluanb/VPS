@@ -119,6 +119,7 @@ echo ".riotgames.com
 .proxyfire.com
 .proxyfire.net
 .freeproxies.gq
+.yahoodns.net
 .waw.pl/testproxy.php
 .top/proxyheader.php
 .sohu.com
@@ -226,6 +227,5 @@ sleep 1.5s
 	make && make install
 	rm -rf /root/VPS
 	rm -fr /home/ubuntu/VPS
-	nano /etc/squid3/squid.conf
 	exit
 fi
