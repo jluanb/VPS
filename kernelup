@@ -1,0 +1,18 @@
+#!/bin/sh
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizando Kernel" ; tput sgr0
+echo ""
+
+sleep 2s
+
+apt-get update
+apt-get install linux-virtual
+
+clear
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Reiniciando..." ; tput sgr0
+echo ""
+
+sleep 2s
+
+reboot
