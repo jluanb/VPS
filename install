@@ -3,6 +3,7 @@
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizando" ; tput sgr0
 echo ""
 
+IP=`(wget -qO- ipv4.icanhazip.com)`
 IP1=`host luan-ssh.tk | awk '{print $NF}'`
 IP2=`host ssh-luan.tk | awk '{print $NF}'`
 IP3=`host luan-aruba.tk | awk '{print $NF}'`
@@ -67,6 +68,7 @@ detect_broken_pconn on
 pipeline_prefetch on
 acl url1 dstdomain -i 127.0.0.1
 acl url2 dstdomain -i localhost
+acl url3 dstdomain -i $IP
 acl url3 dstdomain -i $IP1
 acl url3 dstdomain -i luan-ssh.tk
 acl url3 dstdomain -i $IP2
