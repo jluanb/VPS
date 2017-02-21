@@ -3,6 +3,10 @@
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizando" ; tput sgr0
 echo ""
 
+IP1=`host luan-ssh.tk | awk '{print $NF}'`
+IP2=`host ssh-luan.tk | awk '{print $NF}'`
+IP3=`host luan-aruba.tk | awk '{print $NF}'`
+
 apt-get update
 apt-get upgrade -y
 
@@ -48,10 +52,6 @@ echo ""
 sleep 2s
 
 apt-get install squid3 -y
-
-IP1=`host luan-ssh.tk | awk '{print $NF}'`
-IP2=`host ssh-luan.tk | awk '{print $NF}'`
-IP3=`host luan-aruba.tk | awk '{print $NF}'`
 
 echo "# Ganhos de performançe na hierarchy_stoplist
 hierarchy_stoplist cgi-bin ?
