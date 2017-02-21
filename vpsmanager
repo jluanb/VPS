@@ -35,7 +35,9 @@ echo -e "\033[1;37mEscolha uma das opções:    \033[1;37mPara Sair Ctrl + C\033
 [13] Systemdetalhes \033[1;0m(Detalhes do sistemas )\033[1;33m 
 [14] Vpn \033[1;0m(Instala Openvpn no servidor )\033[33m
 [15] Installbadudp \033[1;0m(Instalar Badudp )\033[1;33m
-[16] Ipp2p \033[1;0m(Blquear Torrent[compativel com kernel 3.13 only )\033[1;0m"
+[16] Ipp2p \033[1;0m(Bloquear Torrent[compativel com kernel 3.13 only )\033[1;33m
+[17] Kernel3.13 \033[1;0m(Downgrade kernel )\033[1;33m
+[18] Kernelup \033[1;0m(Atualizar kernel para útima versão disponivel )\033[1;0m"
 read -p ": " opcao
 
 case $opcao in
@@ -71,6 +73,10 @@ case $opcao in
   installbadudp;;
  16)
   ipp2p;;
+ 17)
+  kernel3.13;;
+ 18)
+  kernelup;;
  *)
   id > /dev/null 2> /dev/null
 esac
