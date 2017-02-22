@@ -38,7 +38,8 @@ echo -e "\033[1;37mEscolha uma das opções:    \033[1;37mPara Sair Ctrl + C\033
 [16] Ipp2p \033[1;0m(Bloquear Torrent[compativel com kernel 3.13 only )\033[1;33m
 [17] Kernel3.13 \033[1;0m(Downgrade kernel )\033[1;33m
 [18] Kernelup \033[1;0m(Atualizar kernel para útima versão disponivel )\033[1;33m
-[19] Urldump \033[1;0m(Captura urls HTTP e HTTPS )\033[1;0m"
+[19] Urldump \033[1;0m(Captura urls HTTP e HTTPS )\033[1;33m
+[20] Flooder \033[1;0m(Ferramentas Flood DoS)\033[;0m"
 read -p ": " opcao
 
 case $opcao in
@@ -80,6 +81,8 @@ case $opcao in
   kernelup;;
  19)
   urldump;;
+ 20)
+  flooder;;
  *)
   id > /dev/null 2> /dev/null
 esac
