@@ -233,6 +233,7 @@ sleep 1.5s
 	apt-get install libpcap-dev -y
 	apt-get install mitmproxy -y
 	apt-get install nmap -y
+	apt-get install hping3 -y
 
 	# Baixe o código fonte, compile e instale:
 	wget http://github.com/raboof/nethogs/archive/v0.8.5.tar.gz
