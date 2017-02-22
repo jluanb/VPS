@@ -154,11 +154,15 @@ X11DisplayOffset 10
 PrintMotd no
 PrintLastLog yes
 TCPKeepAlive yes
-#Banner /etc/banner.txt
+Banner /etc/banner.txt
 #UseLogin no
 AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes" > /etc/ssh/sshd_config
+
+echo "Digte a msg do Banner"
+read -p ": " banner
+echo "$banner" > /etc/banner.txt
 
 service squid3 restart
 
