@@ -10,9 +10,5 @@ apt-get install linux-image-3.13.0-24-generic linux-headers-3.13.0-24-generic -y
 
 clear
 
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Reiniciando..." ; tput sgr0
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalado" ; tput sgr0
 echo ""
-
-sleep 2s
-
-reboot
