@@ -5,18 +5,29 @@ echo ""
 
 sleep 2s
 
-apt-get update
-apt-get install linux-virtual -y
+echo 'GRUB_DEFAULT=0
+GRUB_SAVEDEFAULT=true
+GRUB_DISABLE_SUBMENU=y
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="console=tty1 console=ttyS0"
+GRUB_CMDLINE_LINUX=""' > /etc/default/grub
 
-export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
+echo 'GRUB_DEFAULT=0
+GRUB_HIDDEN_TIMEOUT=0
+GRUB_HIDDEN_TIMEOUT_QUIET=true
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=Debian
+GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0"
+GRUB_CMDLINE_LINUX=""
+GRUB_RECORDFAIL_TIMEOUT=0
+GRUB_TERMINAL=console' > /etc/default/grub.d/50-cloudimg-settings.cfg
 
 update-grub
 
-grub-set-default 'Ubuntu, with Linux 4.4.0-24-generic'
-
-update-grub
-
-clear
+grub-set-default 0
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Reiniciando..." ; tput sgr0
 echo ""
