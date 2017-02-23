@@ -400,7 +400,6 @@ cipher AES-128-CBC
 comp-lzo
 auth-user-pass
 reneg-sec 0
-client-to-client
 setenv opt block-outside-dns
 key-direction 1
 verb 3
