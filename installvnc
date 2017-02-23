@@ -1,0 +1,52 @@
+#!/bin/sh
+
+IP=`(wget -qO- ipv4.icanhazip.com)`
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Vnc e suas dependencias" ; tput sgr0
+echo ""
+
+apt-get install xfce4 xfce4-goodies tightvncserver -y
+apt-get install firefox -y
+
+echo "Digite a senha para acessar o Vnc"
+vncserver
+vncserver -kill :1
+
+mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
+
+echo"#!/bin/bash
+xrdb $HOME/.Xresources
+startxfce4 &" > ~/.vnc/xstartup
+chmod +x ~/.vnc/xstartup
+echo '#!/bin/bash
+PATH="$PATH:/usr/bin/"
+export USER="root"
+DISPLAY="1"
+DEPTH="16"
+GEOMETRY="1024x768"
+OPTIONS="-depth ${DEPTH} -geometry ${GEOMETRY} :${DISPLAY} -localhost"
+. /lib/lsb/init-functions
+case "$1" in
+start)
+log_action_begin_msg "Starting vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver ${OPTIONS}"
+;;
+stop)
+log_action_begin_msg "Stopping vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver -kill :${DISPLAY}"
+;;
+restart)
+$0 stop
+$0 start
+;;
+esac
+exit 0' > /etc/init.d/vncserver
+
+chmod +x /etc/init.d/vncserver
+
+service vncserver start
+
+clear
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Vnc rodando em $IP:5901" ; tput sgr0
+echo ""
