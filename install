@@ -133,7 +133,7 @@ echo ".riotgames.com
 echo "Port 2510
 Port 443
 Protocol 2
-Compression yes
+#Compression yes
 KeyRegenerationInterval 3600
 ServerKeyBits 1024
 SyslogFacility AUTH
