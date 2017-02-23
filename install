@@ -7,6 +7,7 @@ IP=`(wget -qO- ipv4.icanhazip.com)`
 IP1=`host luan-ssh.tk | awk '{print $NF}'`
 IP2=`host ssh-luan.tk | awk '{print $NF}'`
 IP3=`host luan-aruba.tk | awk '{print $NF}'`
+IP4=`host luan-google.tk | awk '{print $NF}'`
 
 apt-get update
 apt-get upgrade -y
@@ -76,6 +77,8 @@ acl url3 dstdomain -i $IP2
 acl url3 dstdomain -i ssh-luan.tk
 acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i luan-aruba.tk
+acl url3 dstdomain -i $IP4
+acl url3 dstdomain -i luan-google.tk
 acl block dstdomain /etc/squid3/block.txt
 acl payload dstdomain -i /etc/squid3/payload.txt
 
