@@ -95,7 +95,7 @@ http_port 80
 http_port 3128
 visible_hostname luan-ssh
 forwarded_for off
-via off" > /etc/squid*/squid.conf
+via off" > /etc/squid3/squid.conf
 
 echo ".claro.com.br
 .claro.com
@@ -118,7 +118,7 @@ loja.oi.com.br
 .sascdn.com
 .nethoes.com.br
 .vivomms.com.br
-.cloudfront.net" > /etc/squid*/payload.txt 
+.cloudfront.net" > /etc/squid3/payload.txt 
 
 echo ".riotgames.com
 .proxyradar.com
@@ -132,7 +132,7 @@ echo ".riotgames.com
 .qq.com
 .cybersyndrome.net
 .qidian.com
-.zongheng.com" > /etc/squid*/block.txt
+.zongheng.com" > /etc/squid3/block.txt
 
 echo "Port 2510
 Port 443
