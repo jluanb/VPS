@@ -7,29 +7,55 @@ echo ""
 
 apt-get install xfce4 xfce4-goodies tightvncserver -y
 apt-get install firefox -y
+apt-get install flashplugin-installer
 
-echo "Digite a senha para acessar o Vnc"
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Digite a senha do Vnc" ; tput sgr0
+echo ""
+
 vncserver
+
 vncserver -kill :1
 
 mv ~/.vnc/xstartup ~/.vnc/xstartup.bak
 
-echo"#!/bin/bash
+echo '#!/bin/bash
 xrdb $HOME/.Xresources
-startxfce4 &" > ~/.vnc/xstartup
+startxfce4 &' > ~/.vnc/xstartup
+
 chmod +x ~/.vnc/xstartup
+
 echo '#!/bin/bash
 PATH="$PATH:/usr/bin/"
 export USER="root"
 DISPLAY="1"
 DEPTH="16"
 GEOMETRY="1024x768"
-OPTIONS="-depth ${DEPTH} -geometry ${GEOMETRY} :${DISPLAY} -localhost"
-. /lib/lsb/init-functions' > /etc/init.d/vncserver
+OPTIONS="-depth ${DEPTH} -geometry ${GEOMETRY} :${DISPLAY}"
+. /lib/lsb/init-functions
+ 
+case "$1" in
+start)
+log_action_begin_msg "Starting vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver ${OPTIONS}"
+;;
+ 
+stop)
+log_action_begin_msg "Stopping vncserver for user '${USER}' on localhost:${DISPLAY}"
+su ${USER} -c "/usr/bin/vncserver -kill :${DISPLAY}"
+;;
+ 
+restart)
+$0 stop
+$0 start
+;;
+esac
+exit 0' > /etc/init.d/vncserver
 
 chmod +x /etc/init.d/vncserver
 
 service vncserver start
+update-rc.d vncserver defaults
+vncserver
 
 clear
 
