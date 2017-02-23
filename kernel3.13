@@ -33,7 +33,6 @@ export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
 update-grub
 
 grub-set-default 'Ubuntu, with Linux 3.13.0-24-generic'
-clear
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Reiniciando..." ; tput sgr0
 echo ""
