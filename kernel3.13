@@ -57,7 +57,7 @@ GRUB_TERMINAL=console' > /etc/default/grub.d/50-cloudimg-settings.cfg
 
 export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
 update-grub
-grub-set-default 2
+grub-set-default 'Debian GNU/Linux, with Linux 3.13.0-24-generic'
 
 clear
 
@@ -66,5 +66,5 @@ echo ""
 
 sleep 2s
 
-reboot
+#reboot
 
