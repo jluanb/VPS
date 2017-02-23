@@ -235,5 +235,7 @@ sleep 1.5s
 	make && make install
 	rm -rf /root/VPS
 	rm -fr /home/ubuntu/VPS
+	rm -rf /root/install
+        rm -rf /home/ubuntu/install
 	exit
 fi
