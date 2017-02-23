@@ -22,6 +22,7 @@ sleep 1.5s
 rm -rf /root/.git
 rm -rf /root/VPS
 rm -rf /root/install
+rm -rf /root/vyvrn
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
@@ -236,6 +237,7 @@ sleep 1.5s
 	rm -rf /root/VPS
 	rm -fr /home/ubuntu/VPS
 	rm -rf /root/install
+	rm -rf /root/vyvrn
         rm -rf /home/ubuntu/install
 	exit
 fi
