@@ -6,7 +6,15 @@ echo ""
 sleep 2s
 
 apt-get update
-apt-get install linux-virtual
+apt-get install linux-virtual -y
+
+export GRUB_CONFIG=`sudo find /boot -name "grub.cfg"`
+
+update-grub
+
+grub-set-default 'Ubuntu, with Linux 4.4.0-24-generic'
+
+update-grub
 
 clear
 
