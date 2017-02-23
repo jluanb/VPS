@@ -77,7 +77,7 @@ acl url3 dstdomain -i ssh-luan.tk
 acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i luan-aruba.tk
 acl block dstdomain /etc/squid3/block.txt
-acl payload dstdomain -i /etc/squid*/payload.txt
+acl payload dstdomain -i /etc/squid3/payload.txt
 
 http_access allow url1
 http_access allow url2
