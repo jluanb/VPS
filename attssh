@@ -124,11 +124,12 @@ Subsystem sftp /usr/lib/openssh/sftp-server
 UsePAM yes
 UseDns no" > /etc/ssh/sshd_config
 
-echo "Digte a msg do Banner"
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Digite a msg do Banner" ; tput sgr0
 read -p ": " banner
 echo "$banner" > /etc/banner.txt
 
 service squid3 restart
+service ssh restart
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Otimizando Sysctl" ; tput sgr0
 echo ""
