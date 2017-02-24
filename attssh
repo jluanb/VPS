@@ -7,8 +7,6 @@ IP1=`host luan-ssh.tk | awk '{print $NF}'`
 IP2=`host ssh-luan.tk | awk '{print $NF}'`
 IP3=`host luan-aruba.tk | awk '{print $NF}'`
 IP4=`host luan-google.tk | awk '{print $NF}'`
-BLOCK=`"/etc/squid3/block.txt"`
-PAYLOAD=`"/etc/squid3/payload.txt`
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squid3" ; tput sgr0
 
@@ -41,8 +39,9 @@ acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i luan-aruba.tk
 acl url3 dstdomain -i $IP4
 acl url3 dstdomain -i luan-google.tk
-acl block dstdomain $BLOCK
-acl payload dstdomain -i $PAYLOAD
+acl block dstdomain -i '/etc/squid3/block.txt'
+acl payload dstdomain -i '/etc/squid3/payload.txt'
+
 http_access allow url1
 http_access allow url2
 http_access allow url3
@@ -93,6 +92,7 @@ echo ".riotgames.com
 .cybersyndrome.net
 .qidian.com
 .zongheng.com" > /etc/squid3/block.txt
+
 echo "Port 2510
 Port 443
 Protocol 2
