@@ -185,7 +185,7 @@ else
 	echo "Which protocol do you want for OpenVPN connections?"
 	echo "   1) UDP (recommended)"
 	echo "   2) TCP"
-	read -p "Protocol [1-2]: " -e -i 1 PROTOCOL
+	read -p "Protocol [1-2]: " -e -i 2 PROTOCOL
 	case $PROTOCOL in
 		1) 
 		PROTOCOL=udp
@@ -254,10 +254,13 @@ proto $PROTOCOL
 dev tun
 sndbuf 0
 rcvbuf 0
+push "sndbuf 393216"
+push "rcvbuf 393216"
 ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
+reneg-sec 0
 plugin /usr/lib/openvpn/openvpn-plugin-auth-pam.so login
 client-cert-not-required
 username-as-common-name
@@ -398,6 +401,7 @@ persist-tun
 remote-cert-tls server
 cipher AES-128-CBC
 comp-lzo
+keepalive 5 240
 auth-user-pass
 reneg-sec 0
 setenv opt block-outside-dns
