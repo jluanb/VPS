@@ -1,0 +1,44 @@
+#!/bin/sh
+
+sleep 2s
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizando..." ; tput sgr0
+echo ""
+
+sleep 1.5s
+
+rm -rf /root/.git
+rm -rf /root/VPS
+rm -rf /root/install
+rm -rf /root/vyvrn
+rm -rf /home/ubuntu/.git
+rm -rf /home/ubuntu/VPS
+rm -rf /home/ubuntu/install
+
+clear
+
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando GIT" ; tput sgr0
+echo ""
+
+sleep 1.5s
+
+apt-get install git -y
+git clone https://github.com/jluanb/VPS.git
+clear
+cd VPS
+rm -rf README.md
+rm -rf install
+for arqs in `ls`
+do
+rm /bin/$arqs 2>/dev/null
+mv $arqs /bin
+chmod +x /bin/$arqs
+done
+
+rm -rf /root/.git
+rm -rf /root/VPS
+rm -rf /root/install
+rm -rf /root/vyvrn
+rm -rf /home/ubuntu/.git
+rm -rf /home/ubuntu/VPS
+rm -rf /home/ubuntu/install
