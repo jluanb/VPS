@@ -14,6 +14,7 @@ rm -rf /root/vyvrn
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
+rm -rf /root/attrepo
 
 clear
 
@@ -42,3 +43,4 @@ rm -rf /root/vyvrn
 rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
+rm -rf /root/attrepo
