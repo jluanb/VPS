@@ -90,7 +90,7 @@ case $opcao in
   urldump;;
  22)
   flooder;;
- 213
+ 23)
   installvnc;;
  *)
   id > /dev/null 2> /dev/null
