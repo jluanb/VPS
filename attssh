@@ -175,4 +175,8 @@ echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
 rm -rf /root/attssh
 
+sleep 2s
+clear
+tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalado" ; tput sgr0
+
 exit
