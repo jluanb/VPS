@@ -80,8 +80,8 @@ acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i luan-aruba.tk
 acl url3 dstdomain -i $IP4
 acl url3 dstdomain -i luan-google.tk
-acl block dstdomain /etc/squid3/block.txt
-acl payload dstdomain -i /etc/squid3/payload.txt
+acl block dstdomain '/etc/squid3/block.txt'
+acl payload dstdomain -i '/etc/squid3/payload.txt'
 
 http_access allow url1
 http_access allow url2
@@ -163,7 +163,8 @@ Banner /etc/banner.txt
 #UseLogin no
 AcceptEnv LANG LC_*
 Subsystem sftp /usr/lib/openssh/sftp-server
-UsePAM yes" > /etc/ssh/sshd_config
+UsePAM yes
+UseDns no" > /etc/ssh/sshd_config
 
 echo "Digte a msg do Banner"
 read -p ": " banner
