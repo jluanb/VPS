@@ -77,7 +77,7 @@ TimeZone	-03
 #TimeStart	00:00
 #TimeStop	23:59' > /etc/squidanalyzer/squidanalyzer.conf
 
-echo '<VirtualHost *:80>
+echo '<VirtualHost *:8080>
   ServerName squidanalyzer.douglasqsantos.com.br
   ServerAdmin webmaster@douglasqsantos.com.br
   DocumentRoot "/var/www/squidanalyzer"
@@ -95,6 +95,7 @@ echo '<VirtualHost *:80>
   CustomLog /var/log/apache2/squidanalyzer-access.log combined
 </VirtualHost>' > /etc/apache2/sites-available/squidanalyzer.conf
 
+rm -rf /etc/apache2/access/
 mkdir /etc/apache2/access/
 htpasswd -s -c /etc/apache2/access/squidanalyzer-htpasswd squidanalyzer
 a2dissite 000-default
