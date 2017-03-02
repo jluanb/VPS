@@ -22,7 +22,7 @@ Listen 8080
 mkdir /var/www/html/
 cd /var/www/html/
 git clone https://github.com/darold/squidanalyzer.git
-mv -f squidanalyzer squidanalyzer-sources
+mv -f squidanalyzer-sources
 cd squidanalyzer-sources
 perl Makefile.PL \
      LOGFILE=/var/log/squid3/access.log \
@@ -105,6 +105,6 @@ echo "0 */10     *       *       *    /usr/bin/squid-analyzer > /dev/null 2>&1" 
 
 /usr/bin/squid-analyzer > /dev/null 2>&1
 
-#mv -f /var/www/html/squidanalyzer /var/www/html/
+mv -f /var/www/html/squidanalyzer /var/www/html/
 
 /etc/init.d/apache2 restart
