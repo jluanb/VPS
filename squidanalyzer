@@ -58,13 +58,13 @@ TopNumber	100
 TopStorage	0
 Exclude	/etc/squidanalyzer/excluded
 Include	/etc/squidanalyzer/included
-Lang	/etc/squidanalyzer/lang/en_US.txt
+Lang	/etc/squidanalyzer/lang/pt_BR.txt
 DateFormat	%d-%m-%y
 AnonymizeLogin	0
 SiblingHit	1
 TransfertUnit	MB
 MinPie		2
-Locale		en_US
+Locale		pt_BR
 WriteDelay	3600
 TopUrlUser	10
 #CustomHeader	<a href="http://my.isp.dom/"><img src="http://my.isp.dom/logo.png" title="My ISP link" border="0" width="100" height="110"></a> My ISP Company
@@ -78,8 +78,8 @@ TimeZone	-03
 #TimeStop	23:59' > /etc/squidanalyzer/squidanalyzer.conf
 
 echo '<VirtualHost *:8080>
-  ServerName squidanalyzer.douglasqsantos.com.br
-  ServerAdmin webmaster@douglasqsantos.com.br
+  ServerName luan-ssh
+  ServerAdmin luanbissoli@gmail.com
   DocumentRoot "/var/www/squidanalyzer"
    <Directory "/var/www/squidanalyzer">
      Options +FollowSymLinks +FollowSymLinks +MultiViews
