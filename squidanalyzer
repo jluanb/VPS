@@ -22,7 +22,7 @@ Listen 8080
 mkdir /var/www/html/
 cd /var/www/html/
 git clone https://github.com/darold/squidanalyzer.git
-mv -f squidanalyzer-sources
+cp -f squidanalyzer squidanalyzer-sources
 cd squidanalyzer-sources
 perl Makefile.PL \
      LOGFILE=/var/log/squid3/access.log \
