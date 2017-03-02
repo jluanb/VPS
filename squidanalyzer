@@ -105,6 +105,6 @@ echo "0 */10     *       *       *    /usr/bin/squid-analyzer > /dev/null 2>&1" 
 
 /usr/bin/squid-analyzer > /dev/null 2>&1
 
-mv -f /var/www/html/squidanalyzer /var/www/html
+mv -f /var/www/html/squidanalyzer /var/www/html/
 
 /etc/init.d/apache2 restart
