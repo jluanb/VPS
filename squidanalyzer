@@ -34,7 +34,9 @@ perl Makefile.PL \
      DOCDIR=/usr/share/doc/squidanalyzer
      
 make && make install
+
 cp -Rfa /var/www/html/squidanalyzer-sources/resources/images/* /var/www/html/squidanalyzer/images/
+
 echo 'Output	/var/www/html/squidanalyzer
 WebUrl	/
 LogFile	/var/log/squid3/access.log
@@ -101,6 +103,7 @@ a2ensite squidanalyzer.conf
 echo "0 */10     *       *       *    /usr/bin/squid-analyzer > /dev/null 2>&1" >> /var/spool/cron/crontabs/root
 
 /usr/bin/squid-analyzer > /dev/null 2>&1
-mv /var/www/html/squidanalyzer /var/www/html
-/etc/init.d/apache2 restart
 
+mv -f /var/www/html/squidanalyzer /var/www/html
+
+/etc/init.d/apache2 restart
