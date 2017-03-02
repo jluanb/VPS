@@ -58,13 +58,13 @@ TopNumber	100
 TopStorage	0
 Exclude	/etc/squidanalyzer/excluded
 Include	/etc/squidanalyzer/included
-Lang	/etc/squidanalyzer/lang/pt_BR.txt
+Lang	/etc/squidanalyzer/lang/en_US.txt
 DateFormat	%d-%m-%y
 AnonymizeLogin	0
 SiblingHit	1
 TransfertUnit	MB
 MinPie		2
-Locale		pt_BR
+Locale		en_US
 WriteDelay	3600
 TopUrlUser	10
 #CustomHeader	<a href="http://my.isp.dom/"><img src="http://my.isp.dom/logo.png" title="My ISP link" border="0" width="100" height="110"></a> My ISP Company
