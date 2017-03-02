@@ -18,11 +18,10 @@ Listen 8080
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet" > /etc/apache2/ports.conf
-
 mkdir /var/www/html/
 cd /var/www/html/
 git clone https://github.com/darold/squidanalyzer.git
-mv -f squidanalyzer squidanalyzer-sources
+mv squidanalyzer squidanalyzer-sources
 cd squidanalyzer-sources
 perl Makefile.PL \
      LOGFILE=/var/log/squid3/access.log \
@@ -36,6 +35,7 @@ perl Makefile.PL \
 make && make install
 
 cp -Rfa /var/www/html/squidanalyzer-sources/resources/images/* /var/www/html/squidanalyzer/images/
+mv /var/www/html/squidanalyzer /var/www/squidanalyzer
 
 echo 'Output	/var/www/html/squidanalyzer
 WebUrl	/
