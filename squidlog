@@ -1,0 +1,3 @@
+#!/bin/ssh
+
+perl -pe 's/[\d\.]+/localtime($&)/e' /var/log/squid3/access.log
