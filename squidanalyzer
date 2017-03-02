@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get build-essential apache2 apache2-utils git -y
+apt-get build-essential apache2 apache2-utils git
 
 echo "# If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
@@ -18,6 +18,7 @@ Listen 8080
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet" > /etc/apache2/ports.conf
 
+mkdir/var/www/html/
 cd /var/www/html/
 git clone https://github.com/darold/squidanalyzer.git
 mv squidanalyzer squidanalyzer-sources
