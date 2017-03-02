@@ -1,6 +1,6 @@
 #!/bin/bash
 
-apt-get build-essential apache2 apache2-utils git
+apt-get install build-essential apache2 apache2-utils git -y
 
 echo "# If you just change the port or add more ports here, you will likely also
 # have to change the VirtualHost statement in
@@ -23,7 +23,6 @@ cd /var/www/html/
 git clone https://github.com/darold/squidanalyzer.git
 mv squidanalyzer squidanalyzer-sources
 cd squidanalyzer-sources
-
 perl Makefile.PL \
      LOGFILE=/var/log/squid3/access.log \
      BINDIR=/usr/bin \
