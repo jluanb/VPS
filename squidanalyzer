@@ -235,7 +235,7 @@ echo "<VirtualHost *:80>
 </VirtualHost>" > /etc/apache2/sites-available/squidanalyzer.conf
 
 mkdir /etc/apache2/access/
-
+htpasswd -s -c /etc/apache2/access/squidanalyzer-htpasswd squidanalyzer
 a2dissite 000-default
 a2ensite squidanalyzer.conf
 
