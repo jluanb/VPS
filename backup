@@ -44,6 +44,10 @@ if [[ "$opcao" = '2' ]]; then
 		echo "Restaurando backup..."
 		echo ""
 		sleep 1
+		cp /etc/shadow /root
+		cp /etc/gshadow /root
+		cp /etc/passwd /root
+		cp /etc/group /root
 		cp /root/backup.vps /backup.vps
 		cd /
 		tar -xvf backup.vps
