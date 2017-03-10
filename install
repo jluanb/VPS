@@ -85,13 +85,13 @@ acl url1 dstdomain -i 127.0.0.1
 acl url2 dstdomain -i localhost
 acl url3 dstdomain -i $IP
 acl url3 dstdomain -i $IP1
-acl url3 dstdomain -i luan-ssh.tk
+acl url3 dstdomain -i $D1
 acl url3 dstdomain -i $IP2
-acl url3 dstdomain -i ssh-luan.tk
+acl url3 dstdomain -i $D2
 acl url3 dstdomain -i $IP3
-acl url3 dstdomain -i luan-aruba.tk
+acl url3 dstdomain -i $D3
 acl url3 dstdomain -i $IP4
-acl url3 dstdomain -i luan-google.tk
+acl url3 dstdomain -i $D4
 acl block dstdomain '/etc/squid3/block.txt'
 acl payload dstdomain -i '/etc/squid3/payload.txt'
 
@@ -145,7 +145,12 @@ echo ".riotgames.com
 .qq.com
 .cybersyndrome.net
 .qidian.com
-.zongheng.com" > /etc/squid3/block.txt
+.zongheng.com
+.zennolab.com
+ http://162.244.35.22/~userkdo/check/ping_14.php
+ .hekko24.pl
+ httpheader.net
+ .emailchecker.io" > /etc/squid3/block.txt
 
 echo "Port 2510
 Port 443
@@ -255,3 +260,5 @@ sleep 1.5s
         rm -rf /home/ubuntu/install
 	exit
 fi
+
+vpsmanager
