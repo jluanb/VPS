@@ -48,3 +48,5 @@ rm -rf /root/attrepo
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Atualizado..." ; tput sgr0
 echo ""
+
+vpsmanager
