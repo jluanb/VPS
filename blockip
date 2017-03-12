@@ -2,6 +2,7 @@
 
 azulClaro="\033[1;34m"
 fim="\033[0m"
+RCLOCAL=/etc/rc.local
 
 echo -e "$azulClaro
 Para bloquear faixa de ip use x.x.x.0/24 ou x.x.0.0/16
@@ -10,4 +11,4 @@ $fim"
 read -p "Digite IP a ser bloqueado: " ip
 
 iptables -I INPUT -s $ip -j DROP
-sed -i 's/#!/bin/sh -e/#!/bin/sh -e\iptables -I INPUT -s $ip -j DROP/' /etc/rc.local
+sed -i "1 a\iptables -I INPUT -s $ip -j DROP" $RCLOCAL
