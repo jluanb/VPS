@@ -10,4 +10,4 @@ $fim"
 read -p "Digite IP a ser bloqueado: " ip
 
 iptables -I INPUT -s $ip -j DROP
-sed -e 's/#!/bin/sh -e/#!/bin/sh -e\iptables -I INPUT -s $ip -j DROP/' /etc/rc.local
+sed -i 's/#!/bin/sh -e/#!/bin/sh -e\iptables -I INPUT -s $ip -j DROP/' /etc/rc.local
