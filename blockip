@@ -1,0 +1,13 @@
+#!/bin/bash
+
+azulClaro="\033[1;34m"
+fim="\033[0m"
+
+echo -e "$azulCalro
+Para bloquear faixa de ip use x.x.x.0/24 ou x.x.0.0/16
+$fim"
+
+read -p "Digite IP a ser bloqueado: " ip
+
+iptables -I INPUT -s $ip -j DROP
+echo "iptables -I INPUT -s $ip -j DROP" >> /etc/rc.local
