@@ -58,55 +58,5 @@ iptables -A OUTPUT -p tcp -m ipp2p --winmx -j DROP
 iptables -A OUTPUT -p tcp -m ipp2p --soul -j DROP
 iptables -A OUTPUT -p tcp -m ipp2p --ares -j DROP
 
-echo "Adicionar ao Boot?"
-echo "   1) Sim"
-echo "   2) Não"
-	read -p "opção [1-2]: " OPCAO
-	case $OPCAO in
-		1) 
-		sed -i "1 a\iptables -A FORWARD -p tcp -m ipp2p --edk -j DROP
-iptables -A FORWARD -p udp -m ipp2p --edk -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --dc -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --kazaa -j DROP
-iptables -A FORWARD -p udp -m ipp2p --kazaa -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --gnu -j DROP
-iptables -A FORWARD -p udp -m ipp2p --gnu -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --bit -j DROP
-iptables -A FORWARD -p udp -m ipp2p --bit -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --apple -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --winmx -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --soul -j DROP
-iptables -A FORWARD -p tcp -m ipp2p --ares -j DROP
-iptables -A INPUT -p tcp -m ipp2p --edk -j DROP
-iptables -A INPUT -p udp -m ipp2p --edk -j DROP
-iptables -A INPUT -p tcp -m ipp2p --dc -j DROP
-iptables -A INPUT -p tcp -m ipp2p --kazaa -j DROP
-iptables -A INPUT -p udp -m ipp2p --kazaa -j DROP
-iptables -A INPUT -p tcp -m ipp2p --gnu -j DROP
-iptables -A INPUT -p udp -m ipp2p --gnu -j DROP
-iptables -A INPUT -p tcp -m ipp2p --bit -j DROP
-iptables -A INPUT -p udp -m ipp2p --bit -j DROP
-iptables -A INPUT -p tcp -m ipp2p --apple -j DROP
-iptables -A INPUT -p tcp -m ipp2p --winmx -j DROP
-iptables -A INPUT -p tcp -m ipp2p --soul -j DROP
-iptables -A INPUT -p tcp -m ipp2p --ares -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --edk -j DROP
-iptables -A OUTPUT -p udp -m ipp2p --edk -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --dc -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --kazaa -j DROP
-iptables -A OUTPUT -p udp -m ipp2p --kazaa -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --gnu -j DROP
-iptables -A OUTPUT -p udp -m ipp2p --gnu -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --bit -j DROP
-iptables -A OUTPUT -p udp -m ipp2p --bit -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --apple -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --winmx -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --soul -j DROP
-iptables -A OUTPUT -p tcp -m ipp2p --ares -j DROP" $RCLOCAL
-		;;
-		2) 
-		esac
-		;;
-
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Ativado!" ; tput sgr0
 echo ""
