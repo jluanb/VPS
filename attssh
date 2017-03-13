@@ -27,20 +27,7 @@ sleep 2s
 apt-get install squid3 -y
 apt-get install squid -y
 
-echo "# Ganhos de performançe na hierarchy_stoplist
-hierarchy_stoplist cgi-bin ?
-# Tempo limite de conexões aceitas e negadas
-negative_ttl 3 minutes
-positive_dns_ttl 5 minutes
-# Terminar imediatamente conexões finalizadas de clientes
-half_closed_clients off
-# Desabilitar memory_pools (Ganho de performançe em RAM)
-memory_pools off
-# Fix
-strip_query_terms off
-detect_broken_pconn on
-pipeline_prefetch on
-acl url1 dstdomain -i 127.0.0.1
+echo "acl url1 dstdomain -i 127.0.0.1
 acl url2 dstdomain -i localhost
 acl url3 dstdomain -i $IP
 acl url3 dstdomain -i $IP1
@@ -51,8 +38,8 @@ acl url3 dstdomain -i $IP3
 acl url3 dstdomain -i $D3
 acl url3 dstdomain -i $IP4
 acl url3 dstdomain -i $D4
-acl block dstdomain -i '/etc/squid3/block.txt'
-acl payload dstdomain -i '/etc/squid3/payload.txt'
+acl block dstdomain -i /etc/squid3/block.txt
+acl payload dstdomain -i /etc/squid3/payload.txt
 
 http_access allow url1
 http_access allow url2
@@ -63,7 +50,7 @@ http_access deny all
  
 #http_port 8080
 http_port 80
-http_port 3128
+#http_port 3128
 visible_hostname luan-ssh
 forwarded_for off
 via off" > /etc/squid3/squid.conf
@@ -106,10 +93,10 @@ echo ".riotgames.com
 .zongheng.com
 .zongheng.com
 .zennolab.com
- http://162.244.35.22/~userkdo/check/ping_14.php
- .hekko24.pl
- httpheader.net
- .emailchecker.io" > /etc/squid3/block.txt
+http://162.244.35.22/~userkdo/check/ping_14.php
+.hekko24.pl
+httpheader.net
+.emailchecker.io" > /etc/squid3/block.txt
 
 echo "Port 2510
 Port 443
