@@ -25,7 +25,6 @@ tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squ
 sleep 2s
 
 apt-get install squid3 -y
-apt-get install squid -y
 
 echo "acl url1 dstdomain -i 127.0.0.1
 acl url2 dstdomain -i localhost
