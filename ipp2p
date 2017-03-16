@@ -1,6 +1,5 @@
 #!/bin/sh
 
-sleep 2s
 RCLOCAL=/etc/rc.local
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Xtables" ; tput sgr0
@@ -10,13 +9,10 @@ sleep 2s
 
 apt-get install xtables-addons-common -y
 
-sleep 2s
 clear
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Ativando Regras Iptables" ; tput sgr0
 echo ""
-
-sleep 2s
 
 iptables -A FORWARD -p tcp -m ipp2p --edk -j DROP
 iptables -A FORWARD -p udp -m ipp2p --edk -j DROP
