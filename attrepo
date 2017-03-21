@@ -17,7 +17,9 @@ rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
 rm -rf /root/attrepo
 mkdir /etc/VpsPackdir
-mkdir /etc/Vpspackdir/limite
+cd /etc/Vpspackdir
+mkdir /limite
+cd
 
 clear
 
