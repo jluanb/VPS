@@ -178,6 +178,8 @@ sysctl -p
 echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
 rm -rf /root/attssh
+mkdir /etc/VpsPackdir
+mkdir /etc/Vpspackdir/limite
 
 sleep 2s
 clear
