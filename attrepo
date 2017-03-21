@@ -16,6 +16,8 @@ rm -rf /home/ubuntu/.git
 rm -rf /home/ubuntu/VPS
 rm -rf /home/ubuntu/install
 rm -rf /root/attrepo
+mkdir /etc/VpsPackdir
+mkdir /etc/Vpspackdir/limite
 
 clear
 
