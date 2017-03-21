@@ -246,6 +246,8 @@ sleep 1.5s
 	rm -rf /root/install
 	rm -rf /root/vyvrn
         rm -rf /home/ubuntu/install
+	mkdir /etc/VpsPackdir
+	mkdir /etc/Vpspackdir/limite
 	exit
 fi
 
