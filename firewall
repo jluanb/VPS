@@ -49,6 +49,18 @@ iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 3000 -j ACCEPT
 iptables -A INPUT -p icmp --icmp-type echo-request -j DROP
 
+iptables -A FORWARD -m string --algo bm --string "BitTorrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "BitTorrent protocol" -j DROP
+iptables -A FORWARD -m string --algo bm --string "peer_id=" -j DROP
+iptables -A FORWARD -m string --algo bm --string ".torrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "announce.php?passkey=" -j DROP
+iptables -A FORWARD -m string --algo bm --string "torrent" -j DROP
+iptables -A FORWARD -m string --algo bm --string "announce" -j DROP
+iptables -A FORWARD -m string --algo bm --string "info_hash" -j DROP 
+iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
+iptables -A FORWARD -m string --string "announce_peer" --algo bm -j DROP
+iptables -A FORWARD -m string --string "find:_node" --algo bm -j DROP
+
 
 echo -e "\033[1;36mFirewall moficicado
 Portas 443 2510 8080 8014 80
