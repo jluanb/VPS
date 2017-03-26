@@ -75,7 +75,9 @@ loja.oi.com.br
 .sascdn.com
 .nethoes.com.br
 .vivomms.com.br
-.cloudfront.net" > /etc/squid3/payload.txt 
+.cloudfront.net
+.ddivulga.com
+.site2unblock.com" > /etc/squid3/payload.txt 
 
 echo ".riotgames.com
 .proxyradar.com
@@ -92,7 +94,6 @@ echo ".riotgames.com
 .zongheng.com
 .zongheng.com
 .zennolab.com
-http://162.244.35.22/~userkdo/check/ping_14.php
 .hekko24.pl
 httpheader.net
 .emailchecker.io" > /etc/squid3/block.txt
