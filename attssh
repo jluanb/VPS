@@ -77,7 +77,10 @@ loja.oi.com.br
 .vivomms.com.br
 .cloudfront.net
 .ddivulga.com
-.site2unblock.com" > /etc/squid3/payload.txt 
+.site2unblock.com
+google.com
+.starwarsclub.co
+.clarobr.mobi" > /etc/squid3/payload.txt 
 
 echo ".riotgames.com
 .proxyradar.com
