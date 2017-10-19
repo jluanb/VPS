@@ -79,7 +79,7 @@ case $opcao in
  16)
   vpn;;
  17)
-  installbadudp;;
+  badvpn;;
  18)
   ipp2p;;
  19)
