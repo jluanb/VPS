@@ -42,7 +42,8 @@ echo -e "\033[1;37mEscolha uma das opções:    \033[1;37mPara Sair Ctrl + C\033
 [20] Kernelup \033[1;0m(Atualizar kernel para útima versão disponivel )\033[1;33m
 [21] Urldump \033[1;0m(Captura urls HTTP e HTTPS )\033[1;33m
 [22] Flooder \033[1;0m(Ferramentas Flood DoS)\033[1;33m
-[23] Installvnc \033[1;0m(Instalar ambiente grafico no servidor)\033[;0m"
+[23] SSL over SSh \033[1;0m(SSL)\033[1;33m
+[24] Installvnc \033[1;0m(Instalar ambiente grafico no servidor)\033[;0m"
 read -p ": " opcao
 
 case $opcao in
@@ -91,6 +92,8 @@ case $opcao in
  22)
   flooder;;
  23)
+  ssl_ssh;;
+ 24)
   installvnc;;
  *)
   id > /dev/null 2> /dev/null
