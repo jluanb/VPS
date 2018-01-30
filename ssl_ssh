@@ -1,0 +1,25 @@
+#!/bin/sh
+
+apt-get install stunnel4 -y
+
+echo "client = no
+[ssh]
+accept = 443
+connect = 127.0.0.1:22
+cert = /etc/stunnel/stunnel.pem" > /etc/stunnel/stunnel.conf
+
+openssl genrsa -out key.pem 2048
+
+sleep 1.5s
+
+openssl req -new -x509 -key key.pem -out cert.pem -days 1095
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+
+echo 'ENABLED=1
+FILES="/etc/stunnel/*.conf"
+OPTIONS=""
+PPP_RESTART=0' > /etc/default/stunnel4
+
+/etc/init.d/stunnel4 restart
+
+fi
