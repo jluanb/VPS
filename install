@@ -62,7 +62,7 @@ DROPBEAR_RECEIVE_WINDOW=65536" > /etc/default/dropbear
 service dropbear restart
 
 echo "Port 2510
-Port 443
+Port 22
 Protocol 2
 #Compression yes
 KeyRegenerationInterval 3600
