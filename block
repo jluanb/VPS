@@ -1,0 +1,3 @@
+#!/bin/bash
+route add -n cs.mbgame.gamesafe.qq.com gw 127.0.0.1 lo
+route add -n 203.205.128.159 gw 127.0.0.1 lo
