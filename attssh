@@ -5,20 +5,8 @@ rm -rf /root/attssh
 echo "Digite o dominio"
 read -p ": " D1
 
-echo "Digite o dominio"
-read -p ": " D2
-
-echo "Digite o dominio"
-read -p ": " D3
-
-echo "Digite o dominio"
-read -p ": " D4
-
 IP=$(wget -qO- ipv4.icanhazip.com)
 IP1=$(host $D1 | awk '{print $NF}')
-IP2=$(host $D2 | awk '{print $NF}')
-IP3=$(host $D3 | awk '{print $NF}')
-IP4=$(host $D4 | awk '{print $NF}')
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Squid3" ; tput sgr0
 
@@ -31,12 +19,6 @@ acl url2 dstdomain -i localhost
 acl url3 dstdomain -i $IP
 acl url3 dstdomain -i $IP1
 acl url3 dstdomain -i $D1
-acl url3 dstdomain -i $IP2
-acl url3 dstdomain -i $D2
-acl url3 dstdomain -i $IP3
-acl url3 dstdomain -i $D3
-acl url3 dstdomain -i $IP4
-acl url3 dstdomain -i $D4
 acl block dstdomain -i /etc/squid3/block.txt
 acl payload dstdomain -i /etc/squid3/payload.txt
 
@@ -101,7 +83,7 @@ echo ".riotgames.com
 httpheader.net
 .emailchecker.io" > /etc/squid3/block.txt
 
-echo "Port 2510
+echo "Port 22
 Port 443
 Protocol 2
 #Compression yes
