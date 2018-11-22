@@ -404,16 +404,6 @@ auth-user-pass
 reneg-sec 0
 setenv opt block-outside-dns
 verb 3
-http-proxy 127.0.0.1 8989
-route $EXTERNALIP 255.255.255.255 net_gateway
-http-proxy-retry
-#http-proxy $IP 80
-#http-proxy-option CUSTOM-HEADER Host sdp.vivo.com.br
-#http-proxy-option CUSTOM-HEADER Host www.portalsva2.vivo.com.br/captive-static/tarif-def/pd/index.html 
-#http-proxy-option CUSTOM-HEADER X-Online-Host www.portalsva2.vivo.com.br/captive-static/tarif-def/cd/index.html 
-#http-proxy-option CUSTOM-HEADER X-Online-Host portalrecarga.vivo.com.br/dtpos/home
-#http-proxy-option CUSTOM-HEADER X-Online-Host portalrecarga.vivo.com.br/recarga/home
-#http-proxy $IP 80
 resolv-retry infinite" > /etc/openvpn/client-common.txt
 	# Generates the custom client.ovpn
 	newclient "$CLIENT"
