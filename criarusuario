@@ -80,7 +80,6 @@ else
 													useradd -e $final -M -s /bin/sh -p $pass $username
 													[ $? -eq 0 ] && tput setaf 2 ; tput bold ; echo ""; echo "Usuário $username criado" ; echo "Data de expiração: $gui" ; echo "Nº de conexões simultâneas permitidas: $sshlimiter" ; echo "" || echo "Não foi possível criar o usuário!" ; tput sgr0
 													echo "$username $sshlimiter" >> /root/usuarios.db
-													limit $username $sshlimiter
 												fi
 											fi
 										fi
