@@ -43,8 +43,6 @@ done
 
 clear
 
-tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Dropbear" ; tput sgr0
-
 sleep 2s
 
 echo "Port 2510
