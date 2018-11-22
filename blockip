@@ -31,12 +31,12 @@ iptables -I INPUT -s $ip -j DROP
 iptables -I OUTPUT -s $ip -j DROP
 iptables -I FORWARD -s $ip -j DROP
 iptables -A INPUT -i tun0 -s $ip -j DROP
-iptables -A OUTPUT -i tun0 -s $ip -j DROP
+#iptables -A OUTPUT -i tun0 -s $ip -j DROP
 iptables -A FORWARD -i tun0 -s $ip -j DROP
 route add -host $ip reject
 sed -i "1 a\iptables -I INPUT -s $ip -j DROP" $RCLOCAL
 sed -i "1 a\iptables -I OUTPUT -s $ip -j DROP" $RCLOCAL
 sed -i "1 a\iptables -I FORWARD -s $ip -j DROP" $RCLOCAL
 sed -i "1 a\iptables -A INPUT -i tun0 -s $ip -j DROP" $RCLOCAL
-sed -i "1 a\iptables -A OUTPUT -i tun0 -s $ip -j DROP" $RCLOCAL
+#sed -i "1 a\iptables -A OUTPUT -i tun0 -s $ip -j DROP" $RCLOCAL
 sed -i "1 a\iptables -A FORWARD -i tun0 -s $ip -j DROP" $RCLOCAL
