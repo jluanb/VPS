@@ -28,5 +28,5 @@ $fim"
 read -p "Digite IP/dominio a ser bloqueado: " ip
 
 route add -n $ip gw 127.0.0.1 lo
-sed -i "1 a\route add -n $ip gw 127.0.0.1 lo" $RCLOCAL
+#sed -i "1 a\route add -n $ip gw 127.0.0.1 lo" $RCLOCAL
 
