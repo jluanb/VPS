@@ -28,4 +28,6 @@ $fim"
 read -p "Digite IP a ser bloqueado: " ip
 
 iptables -I INPUT -s $ip -j DROP
-sed -i "1 a\iptables -I INPUT -s $ip -j DROP" $RCLOCAL
+iptables -I OUTPUT -s $ip -j DROP
+iptables -I FORWARD -s $ip -j DROP
+#sed -i "1 a\iptables -I INPUT -s $ip -j DROP" $RCLOCAL
