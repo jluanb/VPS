@@ -53,13 +53,13 @@ tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Dro
 
 sleep 2s
 
-apt-get install dropbear -y
+#apt-get install dropbear -y
 
-echo "NO_START=0
-DROPBEAR_PORT=80
-DROPBEAR_RECEIVE_WINDOW=65536" > /etc/default/dropbear
+#echo "NO_START=0
+#DROPBEAR_PORT=80
+#DROPBEAR_RECEIVE_WINDOW=65536" > /etc/default/dropbear
 
-service dropbear restart
+#service dropbear restart
 
 echo "Port 2510
 Port 22
