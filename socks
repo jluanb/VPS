@@ -1,0 +1,31 @@
+#!/bin/sh
+
+clear
+echo "     \033[40;1;37m  Socks  \033[0m"
+echo "\033[1;37mEscolha uma das opçoes:    \033[1;37mPara Sair Ctrl + C\033[1;33m
+[1] Proxy1 \033[1;30m(Versao 1 funcional )\033[1;33m
+[2] Proxy18799 \033[1;30m(Versao 1 funcional )\033[1;33m
+[3] Proxy28799 \033[1;30m(Versao 2 beta )\033[1;33m
+[4] Proxy2 \033[1;30m(Versão 2 beta  )\033[;0m"
+read -p ": " opcao
+
+case $opcao in
+1)
+ cd ..
+ cd /bin
+ screen python proxy1.py ;;
+ 2)
+ cd ..
+ cd /bin
+ screen python proxy18799.py ;;
+3)
+ cd ..
+ cd /bin
+ screen python3 proxy2.py 8799 ;;
+4)
+ cd ..
+ cd /bin
+ screen python3 proxy2.py 80 ;;
+ *)
+  id > /dev/null 2> /dev/null
+esac
