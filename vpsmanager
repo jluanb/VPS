@@ -31,8 +31,8 @@ echo -e "\033[1;37mEscolha uma das opções:    \033[1;37mPara Sair Ctrl + C\033
 [9] Sshlimiter \033[1;0m(Número de logins simultaneos)\033[1;33m 
 [10] Sshmonitor \033[1;0m(Monitorar ususarios )\033[1;33m 
 [11] Backup \033[1;0m(Cria e restaura backups )\033[1;33m 
-[12] Firewall \033[1;0m(Proteger VPS contra ataques )\033[1;33m 
-[13] Resetfirewall \033[1;0m(Resetar regras iptables )\033[1;33m 
+[12] Firewall \033[1;0m(Proteger VPS contra ataques BUGADO )\033[1;33m 
+[13] Resetfirewall \033[1;0m(Resetar regras iptables BUGADO )\033[1;33m 
 [14] Speedtest \033[1;0m(Teste velocidade VPS )\033[1;33m 
 [15] Systemdetalhes \033[1;0m(Detalhes do sistemas )\033[1;33m 
 [16] Vpn \033[1;0m(Instala Openvpn no servidor )\033[1;33m
