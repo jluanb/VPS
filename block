@@ -2,8 +2,8 @@
 
 RCLOCAL=/etc/rc.local
 
-iptables -A FORWARD -i eth0 -s > 203.205.146.122 -j DROP
-iptables -A INPUT -i eth0 -s > 203.205.146.122 -j DROP
+iptables -A FORWARD -i eth0 -s 203.205.146.122 -j DROP
+iptables -A INPUT -i eth0 -s 203.205.146.122 -j DROP
 iptables -I FORWARD -s 203.205.146.122 -j DROP
 iptables -I OUTPUT -s 203.205.146.122 -j DROP
 iptables -I INPUT -s 203.205.146.122 -j DROP
