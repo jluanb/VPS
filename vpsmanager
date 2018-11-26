@@ -43,7 +43,11 @@ echo -e "\033[1;37mEscolha uma das opções:    \033[1;37mPara Sair Ctrl + C\033
 [21] Urldump \033[1;0m(Captura urls HTTP e HTTPS )\033[1;33m
 [22] Flooder \033[1;0m(Ferramentas Flood DoS)\033[1;33m
 [23] SSL over SSh \033[1;0m(SSL)\033[1;33m
-[24] Installvnc \033[1;0m(Instalar ambiente grafico no servidor)\033[;0m"
+[24] Block \033[1;0m(Lista de ips pra blockear)\033[1;33m
+[25] Blockroute \033[1;0m(Lista de rotas de ips pra blockear)\033[1;33m
+[26] Blockip \033[1;0m(Blockear ip especifico)\033[1;33m
+[27] Blockiproute \033[1;0m(Blockear rota especifica)\033[1;33m
+[28] Installvnc \033[1;0m(Instalar ambiente grafico no servidor)\033[;0m"
 read -p ": " opcao
 
 case $opcao in
@@ -94,6 +98,14 @@ case $opcao in
  23)
   ssl_ssh;;
  24)
+  block;;
+ 25)
+  blockroute;;
+ 26)
+  blockip;;
+ 27)
+  blockiproute;;
+ 28)
   installvnc;;
  *)
   id > /dev/null 2> /dev/null
