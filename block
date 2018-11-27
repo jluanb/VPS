@@ -75,6 +75,21 @@ iptables -A INPUT -i eth0 -s 203.205.158.41 -j DROP
 iptables -I FORWARD -s 203.205.158.41 -j DROP
 iptables -I OUTPUT -s 203.205.158.41 -j DROP
 iptables -I INPUT -s 203.205.158.41 -j DROP
+iptables -A FORWARD -i eth0 -s 203.205.158.40 -j DROP
+iptables -A INPUT -i eth0 -s 203.205.158.40 -j DROP
+iptables -I FORWARD -s 203.205.158.40 -j DROP
+iptables -I OUTPUT -s 203.205.158.40 -j DROP
+iptables -I INPUT -s 203.205.158.40 -j DROP
+iptables -A FORWARD -i eth0 -s 140.207.54.57 -j DROP
+iptables -A INPUT -i eth0 -s 140.207.54.57 -j DROP
+iptables -I FORWARD -s 140.207.54.57 -j DROP
+iptables -I OUTPUT -s 140.207.54.57 -j DROP
+iptables -I INPUT -s 140.207.54.57 -j DROP
+iptables -A FORWARD -i eth0 -s 203.205.158.43 -j DROP
+iptables -A INPUT -i eth0 -s 203.205.158.43 -j DROP
+iptables -I FORWARD -s 203.205.158.43 -j DROP
+iptables -I OUTPUT -s 203.205.158.43 -j DROP
+iptables -I INPUT -s 203.205.158.43 -j DROP
 sed -i "1 a\iptables -I INPUT -s 203.205.128.159 -j DROP" $RCLOCAL
 sed -i "1 a\iptables -I OUTPUT -s 203.205.128.159 -j DROP" $RCLOCAL
 sed -i "1 a\iptables -I FORWARD -s 203.205.128.159 -j DROP" $RCLOCAL
@@ -150,6 +165,21 @@ sed -i "1 a\iptables -I OUTPUT -s 203.205.158.41 -j DROP" $RCLOCAL
 sed -i "1 a\iptables -I FORWARD -s 203.205.158.41 -j DROP" $RCLOCAL
 sed -i "1 a\iptables -A INPUT -i eth0 -s 203.205.158.41 -j DROP" $RCLOCAL
 sed -i "1 a\iptables -A FORWARD -i eth0 -s 203.205.158.41 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I INPUT -s 203.205.158.40 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I OUTPUT -s 203.205.158.40 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I FORWARD -s 203.205.158.40 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A INPUT -i eth0 -s 203.205.158.40 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A FORWARD -i eth0 -s 203.205.158.40 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I INPUT -s 140.207.54.57 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I OUTPUT -s 140.207.54.57 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I FORWARD -s 140.207.54.57 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A INPUT -i eth0 -s 140.207.54.57 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A FORWARD -i eth0 -s 140.207.54.57 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I INPUT -s 203.205.158.43 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I OUTPUT -s 203.205.158.43 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -I FORWARD -s 203.205.158.43 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A INPUT -i eth0 -s 203.205.158.43 -j DROP" $RCLOCAL
+sed -i "1 a\iptables -A FORWARD -i eth0 -s 203.205.158.43 -j DROP" $RCLOCAL
 route add -n 203.205.158.62 gw 127.0.0.1 lo
 route add -n 203.205.128.159 gw 127.0.0.1 lo
 route add -n 203.205.146.122 gw 127.0.0.1 lo
@@ -165,3 +195,6 @@ route add -n 203.205.158.61 gw 127.0.0.1 lo
 route add -n 119.28.164.223 gw 127.0.0.1 lo
 route add -n 119.28.164.219 gw 127.0.0.1 lo
 route add -n 203.205.158.41 gw 127.0.0.1 lo
+route add -n 203.205.158.40 gw 127.0.0.1 lo
+route add -n 140.207.54.57 gw 127.0.0.1 lo
+route add -n 203.205.158.43 gw 127.0.0.1 lo
