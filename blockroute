@@ -15,4 +15,6 @@ route add -n 203.205.158.61 gw 127.0.0.1 lo
 route add -n 119.28.164.223 gw 127.0.0.1 lo
 route add -n 119.28.164.219 gw 127.0.0.1 lo
 route add -n 203.205.158.41 gw 127.0.0.1 lo
-
+route add -n 203.205.158.40 gw 127.0.0.1 lo
+route add -n 140.207.54.57 gw 127.0.0.1 lo
+route add -n 203.205.158.43 gw 127.0.0.1 lo
