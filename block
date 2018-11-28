@@ -228,13 +228,14 @@ route add -n 203.205.128.130 gw 127.0.0.1 lo
 route add -n 203.205.128.159 gw 127.0.0.1 lo
 route add -n 203.205.138.240 gw 127.0.0.1 lo
 route add -n 203.205.138.241 gw 127.0.0.1 lo
-route add -n 203.205.138.243gw 127.0.0.1 lo
+route add -n 203.205.138.243 gw 127.0.0.1 lo
 route add -n 203.205.138.244 gw 127.0.0.1 lo
 route add -n 203.205.142.207 gw 127.0.0.1 lo
 route add -n 203.205.142.208 gw 127.0.0.1 lo
 route add -n 203.205.146.45 gw 127.0.0.1 lo
 route add -n 203.205.146.122 gw 127.0.0.1 lo
 route add -n 203.205.151.14 gw 127.0.0.1 lo
+route add -n 203.205.151.106 gw 127.0.0.1 lo
 route add -n 203.205.151.193 gw 127.0.0.1 lo
 route add -n 203.205.158.40 gw 127.0.0.1 lo
 route add -n 203.205.158.41 gw 127.0.0.1 lo
