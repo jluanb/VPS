@@ -1,5 +1,5 @@
 #!/bin/bash
-RCLOCAL=/etc/rc.local
+
 iptables -A FORWARD -i eth0 -s 203.205.151.106 -j DROP
 iptables -A INPUT -i eth0 -s 203.205.151.106 -j DROP
 iptables -I FORWARD -s 203.205.151.106 -j DROP
