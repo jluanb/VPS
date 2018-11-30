@@ -100,6 +100,11 @@ iptables -A INPUT -i eth0 -s 119.28.164.223 -j DROP
 iptables -I FORWARD -s 119.28.164.223 -j DROP
 iptables -I OUTPUT -s 119.28.164.223 -j DROP
 iptables -I INPUT -s 119.28.164.223 -j DROP
+iptables -A FORWARD -i eth0 -s 119.28.0.0/16 -j DROP
+iptables -A INPUT -i eth0 -s 119.28.0.0/16 -j DROP
+iptables -I FORWARD -s 119.28.0.0/16 -j DROP
+iptables -I OUTPUT -s 119.28.0.0/16 -j DROP
+iptables -I INPUT -s 119.28.0.0/16 -j DROP
 iptables -A FORWARD -i eth0 -s 203.205.158.61 -j DROP
 iptables -A INPUT -i eth0 -s 203.205.158.61 -j DROP
 iptables -I FORWARD -s 203.205.158.61 -j DROP
