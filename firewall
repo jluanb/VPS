@@ -16,6 +16,10 @@ iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
 
+iptables -A INPUT -p udp -j ACCEPT
+iptables -A OUTPUT -p udp -j ACCEPT
+iptables -A OUTPUT -p udp -j ACCEPT
+
 iptables -A FORWARD -p tcp --dport 7300 -j ACCEPT
 iptables -A INPUT -p tcp --dport 7300 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 7300 -j ACCEPT
@@ -45,12 +49,12 @@ iptables -A INPUT -p tcp --dport 22 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 22 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 443 -j ACCEPT
-iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+#iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
-iptables -A INPUT -p tcp --dport 3128 -j ACCEPT
-iptables -A OUTPUT -p tcp --dport 8080 -j ACCEPT
+#iptables -A INPUT -p tcp --dport 3128 -j ACCEPT
+#iptables -A OUTPUT -p tcp --dport 8080 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 80 -j ACCEPT
-iptables -A FORWARD -p tcp --dport 8080 -j ACCEPT
+#iptables -A FORWARD -p tcp --dport 8080 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 3000 -j ACCEPT
 iptables -A OUTPUT -p tcp --dport 3000 -j ACCEPT
