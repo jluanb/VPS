@@ -20,12 +20,9 @@ iptables -A INPUT -p udp -j ACCEPT
 iptables -A OUTPUT -p udp -j ACCEPT
 iptables -A FORWARD -p udp -j ACCEPT
 
-#iptables -A FORWARD -p tcp --dport 7300 -j ACCEPT
-#iptables -A INPUT -p tcp --dport 7300 -j ACCEPT
-#iptables -A OUTPUT -p tcp --dport 7300 -j ACCEPT
-#iptables -A FORWARD -p udp --dport 7300 -j ACCEPT
-#iptables -A INPUT -p udp --dport 7300 -j ACCEPT
-#iptables -A OUTPUT -p udp --dport 7300 -j ACCEPT
+iptables -I INPUT -p tcp -s 127.0.0.1 --dport 7300 -j ACCEPT
+iptables -I OUTPUT -p tcp -s 127.0.0.1 --dport 7300 -j ACCEPT
+iptables -I FORWARD -p tcp -s 127.0.0.1 --dport 7300 -j ACCEPT
 
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
