@@ -18,7 +18,7 @@ iptables -P FORWARD DROP
 
 iptables -A INPUT -p udp -j ACCEPT
 iptables -A OUTPUT -p udp -j ACCEPT
-iptables -A OUTPUT -p udp -j ACCEPT
+iptables -A FORWARD -p udp -j ACCEPT
 
 #iptables -A FORWARD -p tcp --dport 7300 -j ACCEPT
 #iptables -A INPUT -p tcp --dport 7300 -j ACCEPT
@@ -27,10 +27,10 @@ iptables -A OUTPUT -p udp -j ACCEPT
 #iptables -A INPUT -p udp --dport 7300 -j ACCEPT
 #iptables -A OUTPUT -p udp --dport 7300 -j ACCEPT
 
-#iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-#iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
-#iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
-#iptables -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A OUTPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+iptables -t filter -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 
 #iptables -A OUTPUT -p tcp -d $IP --dport 443 -m state --state NEW -j ACCEPT
 #iptables -A OUTPUT -p tcp -d $IP --dport 80 -m state --state NEW -j ACCEPT
