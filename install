@@ -122,6 +122,7 @@ net.ipv4.tcp_congestion_control=westwood" > /etc/sysctl.conf
 sysctl -p
 echo "westwood" > /proc/sys/net/ipv4/tcp_congestion_control
 
+service ssh restart
 
 tput setaf 7 ; tput setab 4 ; tput bold ; printf '%32s%s%-13s\n' "Instalando Vnstat, Pktstat, Ntop, Nethogs e dependencias" ; tput sgr0
 echo ""
