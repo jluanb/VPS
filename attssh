@@ -19,8 +19,8 @@ acl url2 dstdomain -i localhost
 acl url3 dstdomain -i $IP
 acl url3 dstdomain -i $IP1
 acl url3 dstdomain -i $D1
-acl block dstdomain -i /etc/squid3/block.txt
-acl payload dstdomain -i /etc/squid3/payload.txt
+acl block dstdomain -i /etc/squid/block.txt
+acl payload dstdomain -i /etc/squid/payload.txt
 
 http_access allow url1
 http_access allow url2
@@ -34,7 +34,7 @@ http_port 80
 #http_port 3128
 visible_hostname luan-ssh
 forwarded_for off
-via off" > /etc/squid3/squid.conf
+via off" > /etc/squid/squid.conf
 
 echo ".claro.com.br
 .claro.com
@@ -62,7 +62,7 @@ loja.oi.com.br
 .site2unblock.com
 google.com
 .starwarsclub.co
-.clarobr.mobi" > /etc/squid3/payload.txt 
+.clarobr.mobi" > /etc/squid/payload.txt 
 
 echo ".riotgames.com
 .proxyradar.com
@@ -81,7 +81,7 @@ echo ".riotgames.com
 .zennolab.com
 .hekko24.pl
 httpheader.net
-.emailchecker.io" > /etc/squid3/block.txt
+.emailchecker.io" > /etc/squid/block.txt
 
 echo "Port 22
 Port 443
