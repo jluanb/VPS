@@ -84,7 +84,7 @@ httpheader.net
 .emailchecker.io" > /etc/squid/block.txt
 
 echo "Port 22
-Port 443
+#Port 443
 Protocol 2
 #Compression yes
 KeyRegenerationInterval 3600
