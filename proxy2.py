@@ -1,325 +1,142 @@
- #!/usr/bin/env python
+#!/usr/bin/env python3
 
-# -*- coding: utf-8 -*-
-
-from pprint import pprint
 import sys
 import http.client
-from socketserver import ThreadingMixIn
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from threading import Lock, Timer
-from io import StringIO
-from urllib.parse import urlsplit
 import socket
 import select
-import gzip
-import zlib
-import re
-import traceback
-import subprocess
-subprocess.call("clear",shell=True)
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
+from urllib.parse import urlsplit
 
-server = "127.0.0.1"
-msg1 = 'SOCKS by Luan'
-msg2 = 'Proxy Bloqueado'
+# Aumentamos o buffer para 32KB. Isso reduz a quantidade de vezes que o 
+# processador precisa fazer "System Calls" (syscalls) para ler/escrever dados.
+BUFFER_SIZE = 32768 
+
 class ThreadingHTTPServer(ThreadingMixIn, HTTPServer):
-
     address_family = socket.AF_INET
+    daemon_threads = True
 
-    def handle_error(self, request, client_address):
-        
-        print('-'*40, file=sys.stderr)
-        print('Exception happened during processing of request from', client_address, file=sys.stderr)
-        traceback.print_exc()
-        print('-'*40, file=sys.stderr)
-        
-     
-class ThreadingHTTPServer6(ThreadingHTTPServer):
+class OptimizedHTTPProxy(BaseHTTPRequestHandler):
+    # Timeouts reduzidos de 300s para 60s. 
+    # Isso evita que threads fiquem ociosas consumindo RAM no servidor.
+    timeout = 60
+    upstream_timeout = 60
 
-    address_family = socket.AF_INET6
+    def address_string(self):
+        # IMPORTANTE: Desativa a resolução reversa de DNS.
+        # Por padrão, o Python tenta descobrir o "nome" de cada IP que conecta,
+        # o que gera muita latência e uso de CPU/Rede.
+        return self.client_address[0]
 
-
-class SimpleHTTPProxyHandler(BaseHTTPRequestHandler):
-    global_lock = Lock()
-    conn_table = {}
-    timeout = 300               
-    upstream_timeout = 300    
-    proxy_via = None          
-
-    def log_error(self, format, *args):
-        if format == "Request timed out: %r":
-            return
-        self.log_message(format, *args)
+    def log_message(self, format, *args):
+        # Desativamos a escrita de logs para cada requisição.
+        # Escrever no disco (I/O) é uma das operações mais lentas do sistema.
+        pass
 
     def do_CONNECT(self):
+        address = self.path.split(':')
+        host = address[0]
+        port = int(address[1]) if len(address) > 1 else 443
 
-        req = self
-        reqbody = None
-        if ':22' in req.path:
-            hostip = req.path.replace(':22', '')
-        elif ':443' in req.path:
-            hostip = req.path.replace(':443', '')
-        req.path = "https://%s/" % req.path.replace(':443', '')
-
-        replaced_reqbody = self.request_handler(req, reqbody)
-        if replaced_reqbody is True:
-            return
-
-        u = urlsplit(req.path)
-        address = (u.hostname, u.port or 443)
         try:
-            conn = socket.create_connection(address)
-        except socket.error:
+            upstream_sock = socket.create_connection((host, port), timeout=self.timeout)
+        except Exception:
+            self.send_error(502)
             return
 
-        self.send_response(200, msg1)
-        self.send_header('Connection', 'close')
+        self.send_response(200, 'Connection Established')
         self.end_headers()
 
-        conns = [self.connection, conn]
+        conns = [self.connection, upstream_sock]
         keep_connection = True
+        
         while keep_connection:
-            if not server.find(hostip) != -1:
-                self.send_error(403, msg2)
-                self.close_connection
-            keep_connection = False
-            rlist, wlist, xlist = select.select(conns, [], conns, self.timeout)
+            rlist, _, xlist = select.select(conns, [], conns, self.timeout)
             if xlist:
                 break
             for r in rlist:
                 other = conns[1] if r is conns[0] else conns[0]
-                data = r.recv(8192)
-                if data:
-                    other.sendall(data)
-                    keep_connection = True
-        conn.close()
+                try:
+                    # Usa o novo tamanho de buffer (32KB)
+                    data = r.recv(BUFFER_SIZE)
+                    if data:
+                        other.sendall(data)
+                    else:
+                        keep_connection = False
+                except:
+                    keep_connection = False
+                    break
+        upstream_sock.close()
 
-    def do_HEAD(self):
-        self.do_SPAM()
-
-    def do_GET(self):
-        self.do_SPAM()
-
-    def do_POST(self):
-        self.do_SPAM()
+    def do_GET(self): self.do_SPAM()
+    def do_POST(self): self.do_SPAM()
+    def do_HEAD(self): self.do_SPAM()
 
     def do_SPAM(self):
-        req = self
+        content_length = int(self.headers.get('Content-Length', 0))
+        # Lê o corpo da requisição do cliente
+        req_body = self.rfile.read(content_length) if content_length > 0 else None
 
-        content_length = int(req.headers.get('Content-Length', 0))
-        if content_length > 0:
-            reqbody = self.rfile.read(content_length)
-        else:
-            reqbody = None
+        self._clean_headers(self.headers)
 
-        replaced_reqbody = self.request_handler(req, reqbody)
-        if replaced_reqbody is True:
-            return
-        elif replaced_reqbody is not None:
-            reqbody = replaced_reqbody
-            if 'Content-Length' in req.headers:
-                req.headers['Content-Length'] = str(len(reqbody))
-
+        u = urlsplit(self.path)
+        netloc = u.netloc or self.headers.get('Host')
+        scheme = u.scheme or 'http'
         
-        self.remove_hop_by_hop_headers(req.headers)
-        if self.upstream_timeout:
-            req.headers['Connection'] = 'Keep-Alive'
-        else:
-            req.headers['Connection'] = 'close'
-        if self.proxy_via:
-            self.modify_via_header(req.headers)
+        if not netloc:
+            self.send_error(400)
+            return
 
+        path = f"{u.path}?{u.query}" if u.query else u.path
+        if not path: path = "/"
+
+        conn = http.client.HTTPConnection(netloc, timeout=self.upstream_timeout) if scheme == 'http' \
+               else http.client.HTTPSConnection(netloc, timeout=self.upstream_timeout)
+        
         try:
-            res, resdata = self.request_to_upstream_server(req, reqbody)
-        except socket.error:
-            return
+            conn.request(self.command, path, req_body, self.headers)
+            res = conn.getresponse()
+            
+            self.send_response(res.status, res.reason)
+            for k, v in res.getheaders():
+                if k.lower() not in ['connection', 'transfer-encoding']:
+                    self.send_header(k, v)
+            self.end_headers()
 
-        content_encoding = res.headers.get('Content-Encoding', 'identity')
-        resbody = self.decode_content_body(resdata, content_encoding)
-
-        replaced_resbody = self.response_handler(req, reqbody, res, resbody)
-        if replaced_resbody is True:
-            return
-        elif replaced_resbody is not None:
-            resdata = self.encode_content_body(replaced_resbody, content_encoding)
-            if 'Content-Length' in res.headers:
-                res.headers['Content-Length'] = str(len(resdata))
-            resbody = replaced_resbody
-
-        self.remove_hop_by_hop_headers(res.headers)
-        if self.timeout:
-            res.headers['Connection'] = 'Keep-Alive'
-        else:
-            res.headers['Connection'] = 'close'
-        if self.proxy_via:
-            self.modify_via_header(res.headers)
-
-        self.send_response(res.status, res.reason)
-        for k, v in list(res.headers.items()):
-            if k == 'set-cookie':
-                
-                for value in self.split_set_cookie_header(v):
-                    self.send_header(k, value)
-            else:
-                self.send_header(k, v)
-        self.end_headers()
-
-        if self.command != 'HEAD':
-            self.wfile.write(resdata)
-            with self.global_lock:
-                self.save_handler(req, reqbody, res, resbody)
-
-    def request_to_upstream_server(self, req, reqbody):
-        u = urlsplit(req.path)
-
-        origin = (u.scheme, u.netloc)
-
-        
-        req.headers['Host'] = u.netloc
-        selector = "%s?%s" % (u.path, u.query) if u.query else u.path
-
-        while True:
-            with self.lock_origin(origin):
-                conn = self.open_origin(origin)
-                try:
-                    conn.request(req.command, selector, reqbody, headers=dict(req.headers))
-                except socket.error:
+            if self.command != 'HEAD':
+                # STREAMING: Esta é a maior economia de RAM do script.
+                # Em vez de carregar a resposta inteira na memória (ex: um vídeo de 500MB),
+                # ele repassa de 32KB em 32KB direto para o cliente.
+                while True:
+                    chunk = res.read(BUFFER_SIZE)
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
                     
-                    self.close_origin(origin)
-                    raise
-                try:
-                    res = conn.getresponse(buffering=True)
-                except http.client.BadStatusLine as e:
-                    if e.line == "''":
-                        
-                        self.close_origin(origin)
-                        continue
-                    else:
-                        raise
-                resdata = res.read()
-                res.headers = res.msg    
-                if not self.upstream_timeout or 'close' in res.headers.get('Connection', ''):
-                    self.close_origin(origin)
-                else:
-                    self.reset_timer(origin)
-            return res, resdata
+        except Exception:
+            self.send_error(502)
+        finally:
+            conn.close()
 
-    def lock_origin(self, origin):
-        d = self.conn_table.setdefault(origin, {})
-        if not 'lock' in d:
-            d['lock'] = Lock()
-        return d['lock']
+    def _clean_headers(self, headers):
+        hop_headers = ['connection', 'keep-alive', 'proxy-authenticate', 
+                       'proxy-authorization', 'te', 'trailers', 'transfer-encoding', 'upgrade']
+        for h in hop_headers:
+            if h in headers:
+                del headers[h]
 
-    def open_origin(self, origin):
-        conn = self.conn_table[origin].get('connection')
-        if not conn:
-            scheme, netloc = origin
-            if scheme == 'https':
-                conn = http.client.HTTPSConnection(netloc)
-            else:
-                conn = http.client.HTTPConnection(netloc)
-            self.reset_timer(origin)
-            self.conn_table[origin]['connection'] = conn
-        return conn
-
-    def reset_timer(self, origin):
-        timer = self.conn_table[origin].get('timer')
-        if timer:
-            timer.cancel()
-        if self.upstream_timeout:
-            timer = Timer(self.upstream_timeout, self.close_origin, args=[origin])
-            timer.daemon = True
-            timer.start()
-        else:
-            timer = None
-        self.conn_table[origin]['timer'] = timer
-
-    def close_origin(self, origin):
-        timer = self.conn_table[origin]['timer']
-        if timer:
-            timer.cancel()
-        conn = self.conn_table[origin]['connection']
-        conn.close()
-        del self.conn_table[origin]['connection']
-
-    def remove_hop_by_hop_headers(self, headers):
-        hop_by_hop_headers = ['Connection', 'Keep-Alive', 'Proxy-Authenticate', 'Proxy-Authorization', 'TE', 'Trailers', 'Trailer', 'Transfer-Encoding', 'Upgrade']
-        connection = headers.get('Connection')
-        if connection:
-            keys = re.split(r',\s*', connection)
-            hop_by_hop_headers.extend(keys)
-
-        for k in hop_by_hop_headers:
-            if k in headers:
-                del headers[k]
-
-    def modify_via_header(self, headers):
-        via_string = "%s %s" % (self.protocol_version, self.proxy_via)
-        via_string = re.sub(r'^HTTP/', '', via_string)
-
-        original = headers.get('Via')
-        if original:
-            headers['Via'] = original + ', ' + via_string
-        else:
-            headers['Via'] = via_string
-
-    def decode_content_body(self, data, content_encoding):
-        if content_encoding in ('gzip', 'x-gzip'):
-            io = StringIO(data)
-            with gzip.GzipFile(fileobj=io) as f:
-                body = f.read()
-        elif content_encoding == 'deflate':
-            body = zlib.decompress(data)
-        elif content_encoding == 'identity':
-            body = data
-        else:
-            raise Exception("Unknown Content-Encoding: %s" % content_encoding)
-        return body
-
-    def encode_content_body(self, body, content_encoding):
-        if content_encoding in ('gzip', 'x-gzip'):
-            io = StringIO()
-            with gzip.GzipFile(fileobj=io, mode='wb') as f:
-                f.write(body)
-            data = io.getvalue()
-        elif content_encoding == 'deflate':
-            data = zlib.compress(body)
-        elif content_encoding == 'identity':
-            data = body
-        else:
-            raise Exception("Unknown Content-Encoding: %s" % content_encoding)
-        return data
-
-    def split_set_cookie_header(self, value):
-        re_cookies = r'([^=]+=[^,;]+(?:;\s*Expires=[^,]+,[^,;]+|;[^,;]+)*)(?:,\s*)?'
-        return re.findall(re_cookies, value, flags=re.IGNORECASE)
-
-    def request_handler(self, req, reqbody):
-        
-        pass
-
-    def response_handler(self, req, reqbody, res, resbody):
-     
-        pass
-
-    def save_handler(self, req, reqbody, res, resbody):
-     
-        pass
-
-
-
-
-def test(HandlerClass=SimpleHTTPProxyHandler, ServerClass=ThreadingHTTPServer, protocol="HTTP/1.1"):
-    port = int(sys.argv[1])
-    server_address = ('', port)
-
-    HandlerClass.protocol_version = protocol
-    httpd = ServerClass(server_address, HandlerClass)
-
-    sa = httpd.socket.getsockname()
-    print("Servidor: " + str(sa[0]) + " Porta " + str(sa[1]))
-    httpd.serve_forever()
-
+def run_server(port=8080):
+    # Aumenta a fila de espera do Socket para evitar conexões recusadas em picos
+    ThreadingHTTPServer.request_queue_size = 128
+    httpd = ThreadingHTTPServer(('', port), OptimizedHTTPProxy)
+    
+    print(f"Proxy de Alta Performance rodando na porta {port}...")
+    try:
+        httpd.serve_forever()
+    except KeyboardInterrupt:
+        print("\nDesligando...")
+        httpd.server_close()
 
 if __name__ == '__main__':
-    test()
+    p = int(sys.argv[1]) if len(sys.argv) > 1 else 8080
+    run_server(p)
